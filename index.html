@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CÔNG AN XÃ PHÚ TRUNG - HỆ THỐNG CÔNG AN SỐ TỔNG HỢP</title>
+    <title>TRANG THÔNG TIN ĐIỆN TỬ - CÔNG AN XÃ LONG HÀ</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
@@ -16,14 +16,13 @@
             theme: {
                 extend: {
                     colors: {
-                        police: {
+                        portal: {
+                            blue: '#0066B3',
+                            darkblue: '#004A80',
+                            lightblue: '#0088CC',
                             red: '#D32F2F',
-                            darkred: '#9A0007',
                             gold: '#FFD700',
-                            darkgold: '#C79A00',
-                            blue: '#1A365D',
-                            lightbg: '#F8FAFC',
-                            card: '#FFFFFF'
+                            bg: '#F2F4F7'
                         }
                     },
                     fontFamily: {
@@ -35,651 +34,592 @@
     </script>
 
     <style>
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+        /* Banner nền công nghệ số xanh dương giống hình mẫu */
+        .tech-banner-bg {
+            background-color: #032B56;
+            background-image: 
+                radial-gradient(circle at 80% 45%, rgba(0, 180, 255, 0.35) 0%, transparent 45%),
+                radial-gradient(circle at 20% 50%, rgba(0, 120, 215, 0.4) 0%, transparent 50%),
+                linear-gradient(90deg, #021E3E 0%, #05498C 50%, #032B56 100%);
+            position: relative;
+            overflow: hidden;
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        /* Hiệu ứng lưới mạch điện tử nền banner */
+        .tech-grid-overlay {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+            background-size: 24px 24px;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
+        /* Chữ tiêu đề đỏ viền sáng trắng giống hình mẫu */
+        .portal-title-text {
+            color: #E61C24;
+            text-shadow: 
+                -1.5px -1.5px 0 #FFFFFF,  
+                 1.5px -1.5px 0 #FFFFFF,
+                -1.5px  1.5px 0 #FFFFFF,
+                 1.5px  1.5px 0 #FFFFFF,
+                 0px 3px 6px rgba(0,0,0,0.6);
         }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-        .header-gradient {
-            background: linear-gradient(90deg, #8B0000 0%, #B91C1C 40%, #D32F2F 70%, #7F1D1D 100%);
+        /* Thanh menu xanh dương giống hình mẫu */
+        .portal-nav-bg {
+            background: linear-gradient(180deg, #0077C8 0%, #005A9E 100%);
         }
         .active-tab {
-            background-color: #B91C1C !important;
-            color: #FFFFFF !important;
-            border-bottom: 3px solid #FFD700 !important;
+            background-color: #004275 !important;
+            color: #FFD700 !important;
             font-weight: 700 !important;
-        }
-        .police-badge-pulse {
-            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
-            animation: pulse-red 2s infinite;
-        }
-        @keyframes pulse-red {
-            0% { transform: scale(0.98); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(220, 38, 38, 0); }
-            100% { transform: scale(0.98); box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); }
+            box-shadow: inset 0 -3px 0 #FFD700;
         }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-red-600 selection:text-white">
+<body class="bg-[#F2F4F7] text-slate-800 font-sans min-h-screen flex flex-col antialiased selection:bg-[#0066B3] selection:text-white">
 
-    <div class="bg-red-950 text-yellow-300 text-[11px] font-medium py-1 px-4 border-b border-yellow-500/30 flex justify-between items-center">
-        <div class="flex items-center space-x-4 overflow-hidden whitespace-nowrap">
-            <span class="flex items-center text-emerald-400 font-bold"><span class="w-2 h-2 rounded-full bg-emerald-500 mr-1.5 animate-ping"></span> KẾT NỐI HỆ THỐNG INTERNET & CLOUD STORAGE</span>
-            <span class="text-slate-400">|</span>
-            <span class="truncate"><i class="fa-solid fa-bullhorn text-yellow-400 mr-1"></i> Trực ban 24/7 Hotline Công an Xã Phú Trung: <strong>0865.112.845</strong> - Cấp cứu ANTT: <strong>113</strong></span>
-        </div>
-        <div class="hidden sm:flex items-center space-x-3 text-slate-300 text-[10px]">
-            <span id="current-time-clock" class="font-mono text-yellow-200"></span>
-            <span>|</span>
-            <span>Mã Đơn vị: <strong>CAX-PT-2026</strong></span>
-        </div>
-    </div>
+    <!-- KHUNG CHÍNH CỔNG THÔNG TIN ĐIỆN TỬ (CONTAINER RỘNG CHUẨN PORTAL) -->
+    <div class="max-w-[1220px] w-full mx-auto bg-white shadow-lg border-x border-slate-200 flex-grow flex flex-col">
 
-    <header class="header-gradient text-white shadow-xl sticky top-0 z-50 border-b-2 border-yellow-500">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-               <div class="w-14 h-14 rounded-full bg-red-750 flex items-center justify-center border-2 border-yellow-400 shadow-md flex-shrink-0 overflow-hidden">
-                   <img src="logo-cax.png" alt="Logo Công an xã Phú Trung" class="w-full h-full object-cover" onerror="this.src='https://cdn-icons-png.flaticon.com/512/995/995016.png'">
-               </div>
-                <div>
-                    <div class="flex items-center space-x-2">
-                        <span class="text-[10px] font-black uppercase tracking-wider text-yellow-300 bg-red-950/80 px-2 py-0.5 rounded border border-yellow-500/40">Công an thành phố Đồng Nai</span>
-                        <span class="text-[10px] bg-emerald-700 text-white px-2 py-0.5 rounded-full font-bold"><i class="fa-solid fa-lock text-[9px] mr-1"></i> TT 126/2025/TT-BCA</span>
-                    </div>
-                    <h1 class="text-base sm:text-xl font-black uppercase tracking-wide text-white drop-shadow-md mt-0.5" id="site-header-title">HỆ THỐNG CHUYỂN ĐỔI SỐ - CÔNG AN XÃ PHÚ TRUNG</h1>
-                </div>
-            </div>
-
-            <div class="hidden lg:flex items-center space-x-3">
-                <div class="text-right">
-                    <p class="text-[11px] text-yellow-200 flex items-center justify-end gap-1">
-                        <span>Vai trò:</span>
-                        <span id="role-badge" class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase shadow">CÔNG DÂN</span>
-                    </p>
-                    <p class="text-xs font-bold text-white flex items-center justify-end gap-1 mt-0.5">
-                        <i class="fa-solid fa-user-shield text-yellow-300"></i>
-                        <span id="current-officer-name">Khách / Công Dân</span>
-                    </p>
-                </div>
-
-                <button onclick="editOfficerName()" class="text-xs bg-red-950/60 hover:bg-red-900 p-2 rounded-lg text-yellow-300 transition border border-yellow-500/30 admin-only hidden" title="Chỉnh sửa tên người dùng">
-                    <i class="fa-solid fa-pen-to-square"></i>
-                </button>
-
-                <div class="h-8 w-px bg-red-400/40"></div>
-
-                <button onclick="toggleQrModal()" class="bg-red-950 hover:bg-black border border-yellow-400 text-yellow-300 font-bold text-xs px-3 py-2 rounded-lg transition duration-200 shadow flex items-center gap-1.5">
-                    <i class="fa-solid fa-qrcode text-sm"></i> Quét VNeID
-                </button>
-
-                <div class="relative">
-                    <select id="user-role-select" onchange="handleRoleSwitchRequest(this.value)" class="bg-slate-900 text-yellow-300 border border-yellow-400 font-bold text-xs rounded-lg px-3 py-2 cursor-pointer focus:outline-none hover:bg-slate-800 transition shadow">
-                        <option value="citizen">👤 Công dân</option>
-                        <option value="officer">👮 Cán bộ CAX</option>
-                        <option value="admin">🎖️ Cán bộ vận hành Thượng Úy Võ Ngọc Thành (ADMIN)</option>
-                    </select>
-                </div>
-
-                <button onclick="toggleSecurityModal()" class="bg-yellow-400 hover:bg-yellow-300 text-red-950 font-bold text-xs px-3 py-2 rounded-lg transition duration-200 shadow flex items-center gap-1">
-                    <i class="fa-solid fa-vault"></i> Bảo mật
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <nav class="bg-slate-900 text-slate-300 shadow-md border-b border-slate-800 sticky top-[62px] z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex space-x-1 sm:space-x-2 overflow-x-auto py-2 scrollbar-none" id="nav-tabs">
-                <button onclick="switchTab('don-vi-so')" id="tab-don-vi-so" class="tab-btn active-tab px-3.5 py-2 rounded-lg font-bold text-xs sm:text-sm flex items-center space-x-2 whitespace-nowrap transition duration-150">
-                    <i class="fa-solid fa-building-shield"></i>
-                    <span>1. ĐƠN VỊ SỐ</span>
-                </button>
-                <button onclick="switchTab('chi-huy-so')" id="tab-chi-huy-so" class="tab-btn hover:bg-slate-800 text-slate-300 px-3.5 py-2 rounded-lg font-bold text-xs sm:text-sm flex items-center space-x-2 whitespace-nowrap transition duration-150">
-                    <i class="fa-solid fa-chess-king"></i>
-                    <span>2. CHỈ HUY SỐ</span>
-                </button>
-                <button onclick="switchTab('can-bo-so')" id="tab-can-bo-so" class="tab-btn hover:bg-slate-800 text-slate-300 px-3.5 py-2 rounded-lg font-bold text-xs sm:text-sm flex items-center space-x-2 whitespace-nowrap transition duration-150">
-                    <i class="fa-solid fa-id-card-clip"></i>
-                    <span>3. CÁN BỘ SỐ</span>
-                </button>
-                <button onclick="switchTab('dich-vu-cong')" id="tab-dich-vu-cong" class="tab-btn hover:bg-slate-800 text-slate-300 px-3.5 py-2 rounded-lg font-bold text-xs sm:text-sm flex items-center space-x-2 whitespace-nowrap transition duration-150 text-yellow-400">
-                    <i class="fa-solid fa-handshake-angle"></i>
-                    <span>4. DỊCH VỤ CÔNG SỐ</span>
-                </button>
-                <button onclick="switchTab('tro-ly-ai')" id="tab-tro-ly-ai" class="tab-btn hover:bg-slate-800 text-slate-300 px-3.5 py-2 rounded-lg font-bold text-xs sm:text-sm flex items-center space-x-2 whitespace-nowrap transition duration-150">
-                    <i class="fa-solid fa-robot text-yellow-300"></i>
-                    <span>5. TRỢ LÝ AI NGHIỆP VỤ</span>
-                </button>
-                <button onclick="switchTab('phan-anh-dan')" id="tab-phan-anh-dan" class="tab-btn hover:bg-slate-800 text-slate-300 px-3.5 py-2 rounded-lg font-bold text-xs sm:text-sm flex items-center space-x-2 whitespace-nowrap transition duration-150 text-emerald-400">
-                    <i class="fa-solid fa-bullhorn"></i>
-                    <span>6. TIẾP NHẬN PHẢN ÁNH</span>
-                </button>
-            </div>
-        </div>
-    </nav>
-
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
-
-        <!-- SECTION 1: ĐƠN VỊ SỐ -->
-        <section id="don-vi-so" class="tab-content space-y-6">
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-red-600 relative group transition hover:shadow-md">
-                    <button onclick="editStatCard('stat-population', 'Dân số địa bàn')" class="admin-only hidden absolute top-2 right-2 text-slate-400 hover:text-red-600 text-xs transition p-1" title="ADMIN: Sửa"><i class="fa-solid fa-pen"></i></button>
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-xs font-semibold text-slate-500 uppercase">Dân số địa bàn xã</p>
-                            <h3 class="text-2xl font-black text-slate-800 mt-1" id="stat-population">14,238</h3>
-                            <p class="text-[11px] text-emerald-600 font-medium mt-1"><i class="fa-solid fa-check-circle mr-0.5"></i> Đồng bộ CSDL Quốc gia DC01</p>
+        <!-- 1. BANNER HEADER (GIỐNG HÌNH MẪU) -->
+        <header class="tech-banner-bg border-b border-blue-900">
+            <div class="tech-grid-overlay px-4 sm:px-8 py-4 sm:py-6 flex flex-col md:flex-row items-center justify-between gap-4 relative">
+                <!-- Vòng tròn sóng Radar trang trí bên phải giống hình mẫu -->
+                <div class="hidden lg:flex absolute right-12 top-1/2 -translate-y-1/2 w-56 h-56 rounded-full border border-cyan-400/20 items-center justify-center pointer-events-none">
+                    <div class="w-40 h-40 rounded-full border border-cyan-300/30 flex items-center justify-center">
+                        <div class="w-24 h-24 rounded-full border-2 border-dashed border-cyan-200/40 flex items-center justify-center">
+                            <div class="w-10 h-10 rounded-full bg-cyan-400/20 animate-ping"></div>
                         </div>
-                        <div class="p-3 bg-red-50 text-red-600 rounded-lg"><i class="fa-solid fa-users text-xl"></i></div>
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-blue-600 relative group transition hover:shadow-md">
-                    <button onclick="editStatCard('stat-households', 'Hộ gia đình / Cơ sở KDO')" class="admin-only hidden absolute top-2 right-2 text-slate-400 hover:text-blue-600 text-xs transition p-1" title="ADMIN: Sửa"><i class="fa-solid fa-pen"></i></button>
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-xs font-semibold text-slate-500 uppercase">Hộ gia đình / Cơ sở KD</p>
-                            <h3 class="text-2xl font-black text-slate-800 mt-1" id="stat-households">3,299 / 01</h3>
-                            <p class="text-[11px] text-blue-600 font-medium mt-1"><i class="fa-solid fa-qrcode mr-0.5"></i> 100% gắn mã QR quản lý</p>
+                <!-- Khối Logo + Tiêu đề Chính -->
+                <div class="flex flex-col sm:flex-row items-center text-center sm:text-left gap-4 z-10">
+                    <!-- Logo Công an hiệu / Huy hiệu -->
+                    <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-white/10 p-1 backdrop-blur-sm border-2 border-cyan-300/60 shadow-xl flex-shrink-0 flex items-center justify-center">
+                        <div class="w-full h-full rounded-full bg-gradient-to-b from-red-700 to-red-900 border-2 border-yellow-400 flex flex-col items-center justify-center text-yellow-400 shadow-inner">
+                            <i class="fa-solid fa-star text-2xl sm:text-3xl drop-shadow"></i>
+                            <span class="text-[8px] font-black tracking-tighter uppercase mt-0.5 text-white">CÔNG AN XÃ</span>
                         </div>
-                        <div class="p-3 bg-blue-50 text-blue-600 rounded-lg"><i class="fa-solid fa-house-user text-xl"></i></div>
                     </div>
-                </div>
 
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-yellow-500 relative group transition hover:shadow-md">
-                    <button onclick="editStatCard('stat-incidents', 'Số lượng phản ánh')" class="admin-only hidden absolute top-2 right-2 text-slate-400 hover:text-yellow-600 text-xs transition p-1" title="ADMIN: Sửa"><i class="fa-solid fa-pen"></i></button>
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-xs font-semibold text-slate-500 uppercase">Phản ánh ANTT trong tháng</p>
-                            <h3 class="text-2xl font-black text-slate-800 mt-1" id="stat-incidents">1</h3>
-                            <p class="text-[11px] text-emerald-600 font-medium mt-1"><i class="fa-solid fa-arrow-trend-down mr-0.5"></i> Giảm 15% so với tháng trước</p>
-                        </div>
-                        <div class="p-3 bg-yellow-50 text-yellow-600 rounded-lg"><i class="fa-solid fa-bell text-xl"></i></div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-4 border-l-4 border-l-emerald-600 relative group transition hover:shadow-md">
-                    <button onclick="editStatCard('stat-digitization', 'Tỷ lệ hồ sơ số hóa')" class="admin-only hidden absolute top-2 right-2 text-slate-400 hover:text-emerald-600 text-xs transition p-1" title="ADMIN: Sửa"><i class="fa-solid fa-pen"></i></button>
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-xs font-semibold text-slate-500 uppercase">Tỷ lệ Hồ sơ Số hóa</p>
-                            <h3 class="text-2xl font-black text-slate-800 mt-1" id="stat-digitization">98.5%</h3>
-                            <p class="text-[11px] text-emerald-600 font-medium mt-1"><i class="fa-solid fa-shield-check mr-0.5"></i> Đạt tiêu chuẩn Đơn vị số</p>
-                        </div>
-                        <div class="p-3 bg-emerald-50 text-emerald-600 rounded-lg"><i class="fa-solid fa-chart-line text-xl"></i></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- BẢN ĐỒ SỐ GIÁM SÁT AN NINH TRẬT TỰ ĐỊA BÀN -->
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 space-y-4">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-3 gap-2">
                     <div>
-                        <h3 class="text-sm font-bold text-slate-800 uppercase flex items-center gap-2">
-                            <i class="fa-solid fa-map-location-dot text-red-600"></i> BẢN ĐỒ SỐ GIÁM SÁT AN NINH TRẬT TỰ ĐỊA BÀN (4 Thôn XÃ PHÚ TRUNG)
-                        </h3>
-                        <p class="text-xs text-slate-500 mt-0.5">Nhấn vào từng thôn để định vị trực tiếp trên Google Maps hoặc xem chỉ đường tuần tra ANTT</p>
-                    </div>
-                    <a href="https://maps.google.com/?q=Xã+Phú+Trung,+Đồng+Nai" target="_blank" rel="noopener noreferrer" class="text-xs bg-red-50 hover:bg-red-100 text-red-700 font-bold px-3 py-1.5 rounded-lg border border-red-200 transition flex items-center gap-1.5 whitespace-nowrap">
-                        <i class="fa-solid fa-earth-americas"></i> Mở Bản Đồ Toàn Xã (Google Maps)
-                    </a>
-                </div>
-                
-                <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-center">
-                    <!-- THÔN PHÚ AN -->
-                    <div class="p-4 bg-slate-50 border rounded-xl hover:border-red-500 hover:bg-red-50/30 transition flex flex-col justify-between group">
-                        <div onclick="filterReportByLocation('THÔN PHÚ AN')" class="cursor-pointer">
-                            <span class="text-xs font-bold text-slate-500 group-hover:text-red-700">THÔN PHÚ AN</span>
-                            <p class="text-sm font-black text-slate-800 mt-1">3,539 dân</p>
-                            <span class="inline-block mt-2 text-[10px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">An toàn</span>
-                        </div>
-                        <div class="mt-3 pt-2 border-t border-slate-200 space-y-1.5">
-                            <a href="https://www.google.com/maps/search/?api=1&query=Thôn+Phú+An,+Xã+Phú+Trung,+Đồng+Nai" target="_blank" rel="noopener noreferrer" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold py-1.5 px-2 rounded-lg transition flex items-center justify-center gap-1 shadow-sm">
-                                <i class="fa-solid fa-location-arrow"></i> Chỉ đường Maps <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- THÔN PHÚ NGHĨA -->
-                    <div class="p-4 bg-slate-50 border rounded-xl hover:border-red-500 hover:bg-red-50/30 transition flex flex-col justify-between group">
-                        <div onclick="filterReportByLocation('THÔN PHÚ NGHĨA')" class="cursor-pointer">
-                            <span class="text-xs font-bold text-slate-500 group-hover:text-red-700">THÔN PHÚ NGHĨA</span>
-                            <p class="text-sm font-black text-slate-800 mt-1">3,789 dân</p>
-                            <span class="inline-block mt-2 text-[10px] bg-yellow-100 text-yellow-800 px-2.5 py-0.5 rounded-full font-bold">Lưu ý ANTT</span>
-                        </div>
-                        <div class="mt-3 pt-2 border-t border-slate-200 space-y-1.5">
-                            <a href="https://www.google.com/maps/search/?api=1&query=Thôn+Phú+Nghĩa,+Xã+Phú+Trung,+Đồng+Nai" target="_blank" rel="noopener noreferrer" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold py-1.5 px-2 rounded-lg transition flex items-center justify-center gap-1 shadow-sm">
-                                <i class="fa-solid fa-location-arrow"></i> Chỉ đường Maps <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- THÔN ĐỒNG TÂM -->
-                    <div class="p-4 bg-slate-50 border rounded-xl hover:border-red-500 hover:bg-red-50/30 transition flex flex-col justify-between group">
-                        <div onclick="filterReportByLocation('THÔN ĐỒNG TÂM')" class="cursor-pointer">
-                            <span class="text-xs font-bold text-slate-500 group-hover:text-red-700">THÔN ĐỒNG TÂM</span>
-                            <p class="text-sm font-black text-slate-800 mt-1">3,503 dân</p>
-                            <span class="inline-block mt-2 text-[10px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">An toàn</span>
-                        </div>
-                        <div class="mt-3 pt-2 border-t border-slate-200 space-y-1.5">
-                            <a href="https://www.google.com/maps/search/?api=1&query=Thôn+Đồng+Tâm,+Xã+Phú+Trung,+Đồng+Nai" target="_blank" rel="noopener noreferrer" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold py-1.5 px-2 rounded-lg transition flex items-center justify-center gap-1 shadow-sm">
-                                <i class="fa-solid fa-location-arrow"></i> Chỉ đường Maps <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- THÔN ĐỒNG TIẾN -->
-                    <div class="p-4 bg-slate-50 border rounded-xl hover:border-red-500 hover:bg-red-50/30 transition flex flex-col justify-between group">
-                        <div onclick="filterReportByLocation('THÔN ĐỒNG TIẾN')" class="cursor-pointer">
-                            <span class="text-xs font-bold text-slate-500 group-hover:text-red-700">THÔN ĐỒNG TIẾN</span>
-                            <p class="text-sm font-black text-slate-800 mt-1">3,411 dân</p>
-                            <span class="inline-block mt-2 text-[10px] bg-emerald-100 text-emerald-800 px-2.5 py-0.5 rounded-full font-bold">An toàn</span>
-                        </div>
-                        <div class="mt-3 pt-2 border-t border-slate-200 space-y-1.5">
-                            <a href="https://www.google.com/maps/search/?api=1&query=Thôn+Đồng+Tiến,+Xã+Phú+Trung,+Đồng+Nai" target="_blank" rel="noopener noreferrer" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-[11px] font-bold py-1.5 px-2 rounded-lg transition flex items-center justify-center gap-1 shadow-sm">
-                                <i class="fa-solid fa-location-arrow"></i> Chỉ đường Maps <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
-                            </a>
-                        </div>
+                        <p class="text-cyan-200 text-xs sm:text-sm font-bold uppercase tracking-wider mb-1 drop-shadow">
+                            CÔNG AN THÀNH PHỐ ĐỒNG NAI • HỆ THỐNG CHUYỂN ĐỔI SỐ
+                        </p>
+                        <h1 class="portal-title-text text-xl sm:text-3xl lg:text-[32px] font-black uppercase tracking-wide leading-tight">
+                            TRANG THÔNG TIN ĐIỆN TỬ<br>CÔNG AN XÃ LONG HÀ
+                        </h1>
                     </div>
                 </div>
 
-                <!-- EMBEDDED GOOGLE MAP FRAME -->
-                <div class="w-full h-80 rounded-xl overflow-hidden border border-slate-300 shadow-inner relative">
-                    <iframe 
-                        width="100%" 
-                        height="100%" 
-                        style="border:0;" 
-                        allowfullscreen="" 
-                        loading="lazy" 
-                        referrerpolicy="no-referrer-when-downgrade"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3916.5!2d107.1!3d10.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sUGjDsSBUcnVuZywgxJAwbmcgTmFpLCBWaWV0bmFt!5e0!3m2!1svi!2s!4v1710000000000!5m2!1svi!2s">
-                    </iframe>
+                <!-- Khối Đăng nhập / Vai trò & Quét VNeID -->
+                <div class="z-10 flex flex-col items-center md:items-end gap-2 bg-slate-900/50 backdrop-blur-md p-3 rounded-xl border border-cyan-400/30 text-white">
+                    <div class="flex items-center gap-2 text-xs">
+                        <span class="text-cyan-200">Vai trò:</span>
+                        <span id="role-badge" class="bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase">CÔNG DÂN</span>
+                        <span class="font-bold text-yellow-300" id="current-officer-name">Khách / Công dân</span>
+                        <button onclick="editOfficerName()" class="admin-only hidden text-yellow-300 hover:text-white" title="Sửa tên hiển thị">
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-center gap-1.5">
+                        <button onclick="toggleQrModal()" class="bg-[#0066B3] hover:bg-[#004A80] border border-cyan-300/60 text-white font-bold text-[11px] px-2.5 py-1.5 rounded transition flex items-center gap-1 shadow">
+                            <i class="fa-solid fa-qrcode"></i> Quét VNeID
+                        </button>
+
+                        <select id="user-role-select" onchange="handleRoleSwitchRequest(this.value)" class="bg-slate-950 text-yellow-300 border border-cyan-400/50 font-bold text-[11px] rounded px-2 py-1.5 cursor-pointer focus:outline-none">
+                            <option value="citizen">👤 Công dân</option>
+                            <option value="officer">👮 Cán bộ CAX</option>
+                            <option value="admin">🎖️ Quản trị viên (ADMIN)</option>
+                        </select>
+
+                        <button onclick="toggleSecurityModal()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-[11px] px-2.5 py-1.5 rounded transition flex items-center gap-1 shadow">
+                            <i class="fa-solid fa-shield-halved"></i> Bảo mật
+                        </button>
+                    </div>
                 </div>
             </div>
-        </section>
+        </header>
 
-        <!-- SECTION 2: CHỈ HUY SỐ -->
-        <section id="chi-huy-so" class="tab-content hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
-                    <div class="flex justify-between items-center mb-4 border-b pb-2">
-                        <h3 class="text-sm font-bold text-slate-800 uppercase flex items-center gap-2">
-                            <i class="fa-solid fa-user-gear text-red-600"></i> DANH SÁCH CHỈ HUY CAX PHÚ TRUNG 
-                        </h3>
-                        <div class="flex items-center gap-2">
-                            <span class="text-xs text-slate-500 font-medium" id="officer-count-badge">06 cán bộ</span>
-                            <button onclick="openOfficerModal()" class="admin-only hidden text-xs bg-blue-600 hover:bg-blue-700 text-white font-bold px-2 py-1 rounded transition">
-                                <i class="fa-solid fa-plus mr-1"></i> Thêm
-                            </button>
-                        </div>
+        <!-- 2. THANH MENU NGANG XANH DƯƠNG (GIỐNG HÌNH MẪU) -->
+        <nav class="portal-nav-bg text-white shadow sticky top-0 z-40 border-b border-blue-900">
+            <div class="flex items-center overflow-x-auto scrollbar-none divide-x divide-blue-400/30" id="nav-tabs">
+                <button onclick="switchTab('trang-chu')" id="tab-trang-chu" class="tab-btn active-tab px-4 py-3 font-bold text-xs uppercase flex items-center gap-1.5 whitespace-nowrap hover:bg-[#004A80] transition">
+                    <i class="fa-solid fa-house"></i>
+                    <span>TRANG CHỦ</span>
+                </button>
+                <button onclick="switchTab('dich-vu-cong')" id="tab-dich-vu-cong" class="tab-btn px-4 py-3 font-bold text-xs uppercase flex items-center gap-1.5 whitespace-nowrap hover:bg-[#004A80] transition">
+                    <span>CẢI CÁCH HÀNH CHÍNH & DVC</span>
+                    <i class="fa-solid fa-caret-down text-[10px] opacity-80"></i>
+                </button>
+                <button onclick="switchTab('tro-ly-ai')" id="tab-tro-ly-ai" class="tab-btn px-4 py-3 font-bold text-xs uppercase flex items-center gap-1.5 whitespace-nowrap hover:bg-[#004A80] transition">
+                    <span>TRỢ LÝ AI PHÁP LUẬT</span>
+                </button>
+                <button onclick="switchTab('phan-anh-dan')" id="tab-phan-anh-dan" class="tab-btn px-4 py-3 font-bold text-xs uppercase flex items-center gap-1.5 whitespace-nowrap hover:bg-[#004A80] transition">
+                    <span>TIẾP NHẬN PHẢN ÁNH</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- 3. THANH NGÀY GIỜ & BỘ CHỌN MÀU SẮC (GIỐNG HÌNH MẪU) -->
+        <div class="bg-[#F4F6F9] border-b border-slate-200 px-4 py-2 flex flex-wrap justify-between items-center text-xs text-slate-600 gap-2">
+            <div class="flex items-center gap-3">
+                <span id="current-time-clock" class="font-medium text-slate-700">Thứ năm, 19/11/2026, 09:35</span>
+                <span class="hidden sm:inline text-slate-300">|</span>
+                <span class="hidden sm:inline text-red-700 font-bold"><i class="fa-solid fa-phone-volume mr-1"></i> Trực ban Công an xã Long Hà 24/7: 0865.112.845 - Cấp cứu 113</span>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <span class="text-slate-600 flex items-center gap-1"><i class="fa-solid fa-gear text-slate-500"></i> Thay đổi màu sắc</span>
+                <div class="flex items-center gap-1">
+                    <button onclick="changeThemeAccent('blue')" class="w-3.5 h-3.5 bg-[#0066B3] border border-slate-400 rounded-xs hover:scale-110 transition" title="Màu Xanh Cổng TTĐT"></button>
+                    <button onclick="changeThemeAccent('red')" class="w-3.5 h-3.5 bg-[#C8102E] border border-slate-400 rounded-xs hover:scale-110 transition" title="Màu Đỏ Ngành Công An"></button>
+                    <button onclick="changeThemeAccent('emerald')" class="w-3.5 h-3.5 bg-[#047857] border border-slate-400 rounded-xs hover:scale-110 transition" title="Màu Xanh Lá"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. BANNER CHÀO MỪNG MÀU ĐỎ CHỮ VÀNG (GIỐNG HÌNH MẪU) -->
+        <div class="px-4 pt-3">
+            <div class="w-full rounded overflow-hidden shadow-sm border border-red-700 bg-gradient-to-r from-[#D91B24] via-[#E32227] to-[#C4121A] py-3 px-4 sm:px-8 flex items-center justify-between relative">
+                <!-- Họa tiết bên trái banner -->
+                <div class="hidden sm:flex items-center gap-2 text-yellow-300">
+                    <div class="w-10 h-10 rounded-full bg-yellow-400/20 border border-yellow-300 flex items-center justify-center">
+                        <i class="fa-solid fa-flag text-xl text-yellow-300"></i>
                     </div>
-                    <div class="space-y-3 max-h-[450px] overflow-y-auto pr-1" id="officer-list-container">
+                    <div class="text-[10px] font-bold uppercase leading-tight text-yellow-200">
+                        VÌ NƯỚC QUÊN THÂN<br>VÌ DÂN PHỤC VỤ
                     </div>
                 </div>
 
-                <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-5">
-                    <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 border-b pb-3 gap-2">
-                        <h3 class="text-sm font-bold text-slate-800 uppercase flex items-center gap-2">
-                            <i class="fa-solid fa-list-check text-red-600"></i> Bảng Giao Nhiệm vụ Chỉ huy
-                        </h3>
-                        <div class="flex items-center gap-2">
-                            <button onclick="exportData('tasks')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-2.5 py-1.5 rounded transition flex items-center gap-1 border">
-                                <i class="fa-solid fa-file-export"></i> Xuất Tệp
+                <!-- Dòng chữ khẩu hiệu lớn màu vàng nổi bật giữa banner -->
+                <h2 class="text-center flex-grow text-base sm:text-2xl lg:text-[26px] font-black uppercase tracking-wide text-[#FFF200] drop-shadow-[0_2px_2px_rgba(0,0,0,0.6)]">
+                    CÔNG AN XÃ LONG HÀ ĐẨY MẠNH CHUYỂN ĐỔI SỐ VÌ NHÂN DÂN PHỤC VỤ!
+                </h2>
+
+                <!-- Họa tiết bên phải banner -->
+                <div class="hidden md:flex items-center gap-1.5 text-yellow-300 text-xs font-bold">
+                    <i class="fa-solid fa-shield-halved text-2xl"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. NỘI DUNG CHÍNH -->
+        <main class="p-4 flex-grow space-y-6">
+
+            <!-- ===================================================================== -->
+            <!-- TAB 0: TRANG CHỦ CỔNG THÔNG TIN (BỐ CỤC 3 CỘT GIỐNG HÌNH MẪU)         -->
+            <!-- ===================================================================== -->
+            <section id="trang-chu" class="tab-content space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+                    
+                    <!-- CỘT TRÁI (5 CỘT): POSTER TUYÊN TRUYỀN / TIN NỔI BẬT CHÍNH -->
+                    <div class="lg:col-span-5 flex flex-col">
+                        <div class="border border-slate-300 rounded overflow-hidden bg-white shadow-sm flex-grow flex flex-col">
+                            <!-- Poster Tuyên truyền trực quan -->
+                            <div class="bg-gradient-to-b from-[#005A9E] to-[#003B6F] text-white p-4 relative flex-grow flex flex-col justify-between">
+                                <div class="flex justify-between items-start">
+                                    <span class="bg-red-600 text-white text-[10px] font-black px-2.5 py-1 rounded uppercase shadow">
+                                        <i class="fa-solid fa-bullhorn mr-1"></i> Tuyên truyền trọng điểm
+                                    </span>
+                                    <span class="text-[11px] text-cyan-200 font-semibold">Đề án 06 / CP</span>
+                                </div>
+
+                                <div class="my-4 text-center space-y-2">
+                                    <div class="inline-block bg-yellow-400 text-red-900 font-black text-xs px-3 py-1 rounded-full uppercase shadow">
+                                        HƯỚNG DẪN CÀI ĐẶT & KÍCH HOẠT VNeID MỨC 2
+                                    </div>
+                                    <h3 class="text-xl sm:text-2xl font-black uppercase text-white leading-snug drop-shadow">
+                                        CÔNG DÂN SỐ XÃ LONG HÀ<br>
+                                        <span class="text-yellow-300">TIỆN ÍCH TRONG TẦM TAY</span>
+                                    </h3>
+                                </div>
+
+                                <div class="bg-white/95 text-slate-800 rounded-lg p-3.5 text-xs space-y-2 shadow-inner">
+                                    <p class="font-bold text-[#005A9E] uppercase border-b pb-1 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-circle-check text-emerald-600"></i> 05 Tiện ích thiết thực khi dùng VNeID:
+                                    </p>
+                                    <ul class="space-y-1.5 font-medium text-slate-700">
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-600 mt-0.5"></i> Thay thế thẻ BHYT, Giấy phép lái xe, Đăng ký xe bản giấy.</li>
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-600 mt-0.5"></i> Đăng ký thường trú, tạm trú, thông báo lưu trú trực tuyến.</li>
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-600 mt-0.5"></i> Kiến nghị, phản ánh tình hình ANTT bảo mật danh tính.</li>
+                                        <li class="flex items-start gap-2"><i class="fa-solid fa-check text-red-600 mt-0.5"></i> Tích hợp Sổ sức khỏe điện tử & Cấp phiếu Lý lịch tư pháp.</li>
+                                    </ul>
+                                </div>
+
+                                <div class="mt-3 pt-2 border-t border-blue-400/30 flex justify-between items-center text-[11px]">
+                                    <span class="text-cyan-100"><i class="fa-solid fa-location-dot mr-1"></i> Hỗ trợ miễn phí tại Trụ sở CAX Long Hà</span>
+                                    <button onclick="switchTab('dich-vu-cong')" class="bg-yellow-400 hover:bg-yellow-300 text-red-950 font-bold px-2.5 py-1 rounded transition">
+                                        Nộp hồ sơ ngay <i class="fa-solid fa-arrow-right ml-0.5"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CỘT GIỮA (4 CỘT): TAB TIN MỚI / TIN XEM NHIỀU (GIỐNG HÌNH MẪU) -->
+                    <div class="lg:col-span-4 flex flex-col">
+                        <div class="border border-slate-300 rounded overflow-hidden bg-white shadow-sm flex-grow flex flex-col">
+                            <!-- Header Tab Tin Mới / Tin Xem Nhiều + Link Facebook CAX Long Hà -->
+                            <div class="flex items-center justify-between border-b border-slate-300 bg-slate-100 text-xs font-bold uppercase pr-2">
+                                <div class="flex">
+                                    <button onclick="switchNewsTab('tin-moi')" id="btn-tin-moi" class="px-3.5 py-2.5 bg-[#0066B3] text-white transition">
+                                        TIN MỚI
+                                    </button>
+                                    <button onclick="switchNewsTab('tin-xem-nhieu')" id="btn-tin-xem-nhieu" class="px-3.5 py-2.5 text-slate-700 hover:bg-slate-200 transition">
+                                        TIN XEM NHIỀU
+                                    </button>
+                                </div>
+                                <a href="https://www.facebook.com/profile.php?id=61586333589442" target="_blank" rel="noopener noreferrer" class="bg-[#1877F2] hover:bg-blue-700 text-white text-[10px] font-bold px-2.5 py-1.5 rounded flex items-center gap-1 shadow-sm transition normal-case" title="Truy cập Fanpage Facebook Công an xã Long Hà">
+                                    <i class="fa-brands fa-facebook"></i>
+                                    <span>Fanpage CAX</span>
+                                </a>
+                            </div>
+
+                            <!-- Danh sách tin tức -->
+                            <div id="news-list-tin-moi" class="divide-y divide-slate-200 p-3 space-y-3 flex-grow">
+                                <!-- Tin nổi bật gắn link trực tiếp Facebook Công an xã Long Hà -->
+                                <a href="https://www.facebook.com/profile.php?id=61586333589442" target="_blank" rel="noopener noreferrer" class="flex gap-3 pt-1 cursor-pointer group block">
+                                    <div class="w-24 h-16 rounded bg-[#1877F2] text-white flex-shrink-0 flex flex-col items-center justify-center p-1 text-center border border-blue-700 shadow-xs">
+                                        <i class="fa-brands fa-facebook text-xl"></i>
+                                        <span class="text-[8px] font-bold uppercase mt-0.5">FACEBOOK CAX</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-[#1877F2] group-hover:underline leading-snug uppercase">
+                                            TRANG THÔNG TIN FACEBOOK CHÍNH THỨC CỦA CÔNG AN XÃ LONG HÀ <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-0.5"></i>
+                                        </h4>
+                                        <span class="text-[10px] text-slate-500 mt-1 block">Theo dõi tin tức ANTT & Tuyên truyền mới nhất</span>
+                                    </div>
+                                </a>
+
+                                <article class="flex gap-3 pt-3 cursor-pointer group" onclick="switchTab('can-bo-so')">
+                                    <div class="w-24 h-16 rounded bg-red-800 text-yellow-300 flex-shrink-0 flex flex-col items-center justify-center p-1 text-center border border-slate-300">
+                                        <i class="fa-solid fa-shield-halved text-lg"></i>
+                                        <span class="text-[8px] font-bold uppercase mt-0.5">CAX LONG HÀ</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-800 group-hover:text-[#0066B3] leading-snug uppercase">
+                                            CÔNG AN XÃ LONG HÀ RA QUÂN CAO ĐIỂM TẤN CÔNG TRẤN ÁP TỘI PHẠM, BẢO ĐẢM ANTT ĐỊA BÀN
+                                        </h4>
+                                        <span class="text-[10px] text-slate-400 mt-1 block"><i class="fa-regular fa-clock mr-1"></i>19/11/2026</span>
+                                    </div>
+                                </article>
+
+                                <article class="flex gap-3 pt-3 cursor-pointer group" onclick="switchTab('dich-vu-cong')">
+                                    <div class="w-24 h-16 rounded bg-red-800 text-yellow-300 flex-shrink-0 flex flex-col items-center justify-center p-1 text-center border border-slate-300">
+                                        <i class="fa-solid fa-shield-halved text-lg"></i>
+                                        <span class="text-[8px] font-bold uppercase mt-0.5">CAX LONG HÀ</span>
+                                    </div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-800 group-hover:text-[#0066B3] leading-snug uppercase">
+                                            CÔNG AN XÃ LONG HÀ RA QUÂN CAO ĐIỂM TẤN CÔNG TRẤN ÁP TỘI PHẠM, BẢO ĐẢM ANTT ĐỊA BÀN
+                                        </h4>
+                                        <span class="text-[10px] text-slate-400 mt-1 block"><i class="fa-regular fa-clock mr-1"></i>19/11/2026</span>
+                                    </div>
+                                </article>
+
+                                <article class="flex gap-3 pt-3 cursor-pointer group" onclick="switchTab('dich-vu-cong')">
+                                    <div class="w-8 h-8 rounded bg-[#0066B3] text-white font-black flex items-center justify-center flex-shrink-0">2</div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-800 group-hover:text-[#0066B3] leading-snug">
+                                            Quy trình đăng ký xe mô tô, xe gắn máy lần đầu toàn trình tại Công an xã Long Hà
+                                        </h4>
+                                        <span class="text-[10px] text-slate-400">985 lượt xem</span>
+                                    </div>
+                                </article>
+                                <article class="flex gap-3 pt-3 cursor-pointer group" onclick="switchTab('phan-anh-dan')">
+                                    <div class="w-8 h-8 rounded bg-emerald-600 text-white font-black flex items-center justify-center flex-shrink-0">3</div>
+                                    <div>
+                                        <h4 class="text-xs font-bold text-slate-800 group-hover:text-[#0066B3] leading-snug">
+                                            Danh sách số điện thoại trực ban và Cảnh sát khu vực các thôn trên địa bàn xã Long Hà
+                                        </h4>
+                                        <span class="text-[10px] text-slate-400">860 lượt xem</span>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CỘT PHẢI (3 CỘT): Ô TÌM KIẾM & MENU CHUYÊN MỤC XANH DƯƠNG (GIỐNG HÌNH MẪU) -->
+                    <div class="lg:col-span-3 space-y-3">
+                        <!-- Khung tìm kiếm màu xanh -->
+                        <div class="bg-[#0066B3] p-2.5 rounded shadow-sm flex gap-1.5">
+                            <input type="text" id="portal-quick-search" placeholder="Tìm kiếm..." class="w-full bg-[#004A80] text-white placeholder-blue-200 text-xs px-3 py-2 rounded border border-blue-400/50 focus:outline-none focus:border-yellow-300" onkeypress="if(event.key==='Enter') handleQuickPortalSearch()">
+                            <button onclick="handleQuickPortalSearch()" class="bg-[#4DA3E0] hover:bg-blue-400 text-white font-bold text-xs px-3 py-2 rounded transition whitespace-nowrap">
+                                Tìm
                             </button>
-                            <button onclick="openTaskModal()" class="admin-only hidden text-xs bg-red-700 hover:bg-red-800 text-white font-bold px-3 py-1.5 rounded flex items-center gap-1 transition shadow">
-                                <i class="fa-solid fa-plus"></i> Giao Nhiệm Vụ Mới
+                        </div>
+
+                        <!-- Danh sách nút chuyên mục xanh dương xếp dọc giống hình mẫu -->
+                        <div class="rounded overflow-hidden shadow-sm border border-blue-800 divide-y divide-blue-400/40 text-white text-xs font-bold">
+                            <button onclick="switchTab('dich-vu-cong')" class="w-full text-left bg-[#0066B3] hover:bg-[#004A80] px-4 py-3 transition flex items-center justify-between">
+                                <span>Niêm yết thủ tục hành chính</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] opacity-75"></i>
+                            </button>
+                            <button onclick="switchTab('dich-vu-cong')" class="w-full text-left bg-[#0066B3] hover:bg-[#004A80] px-4 py-3 transition flex items-center justify-between">
+                                <span>Cải cách hành chính & DVC</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] opacity-75"></i>
+                            </button>
+                            <button onclick="switchTab('tro-ly-ai')" class="w-full text-left bg-[#0066B3] hover:bg-[#004A80] px-4 py-3 transition flex items-center justify-between">
+                                <span>Tuyên truyền phổ biến pháp luật</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] opacity-75"></i>
+                            </button>
+                            <button onclick="switchTab('phan-anh-dan')" class="w-full text-left bg-[#0066B3] hover:bg-[#004A80] px-4 py-3 transition flex items-center justify-between">
+                                <span>Tiếp nhận tin báo tố giác tội phạm</span>
+                                <i class="fa-solid fa-chevron-right text-[10px] opacity-75"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- KHỐI THỐNG KÊ NHANH ĐỊA BÀN XÃ LONG HÀ -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+                    <div class="bg-white rounded border border-slate-300 p-4 border-l-4 border-l-[#0066B3] shadow-sm">
+                        <p class="text-xs font-bold text-slate-500 uppercase">Dân số xã Long Hà</p>
+                        <h3 class="text-2xl font-black text-slate-800 mt-1" id="home-stat-pop">18,650</h3>
+                        <p class="text-[11px] text-emerald-600 font-medium mt-1"><i class="fa-solid fa-check-circle mr-1"></i>Đồng bộ CSDL Quốc gia DC01</p>
+                    </div>
+                    <div class="bg-white rounded border border-slate-300 p-4 border-l-4 border-l-red-600 shadow-sm">
+                        <p class="text-xs font-bold text-slate-500 uppercase">Hộ gia đình / Cơ sở KD</p>
+                        <h3 class="text-2xl font-black text-slate-800 mt-1" id="home-stat-house">4,120 / 48</h3>
+                        <p class="text-[11px] text-[#0066B3] font-medium mt-1"><i class="fa-solid fa-qrcode mr-1"></i>100% gắn mã QR quản lý</p>
+                    </div>
+                    <div class="bg-white rounded border border-slate-300 p-4 border-l-4 border-l-amber-500 shadow-sm">
+                        <p class="text-xs font-bold text-slate-500 uppercase">Tỷ lệ kích hoạt VNeID Mức 2</p>
+                        <h3 class="text-2xl font-black text-slate-800 mt-1">96.8%</h3>
+                        <p class="text-[11px] text-emerald-600 font-medium mt-1"><i class="fa-solid fa-arrow-trend-up mr-1"></i>Vượt chỉ tiêu Đề án 06</p>
+                    </div>
+                    <div class="bg-white rounded border border-slate-300 p-4 border-l-4 border-l-emerald-600 shadow-sm">
+                        <p class="text-xs font-bold text-slate-500 uppercase">Hồ sơ DVC giải quyết đúng hạn</p>
+                        <h3 class="text-2xl font-black text-slate-800 mt-1">99.4%</h3>
+                        <p class="text-[11px] text-emerald-600 font-medium mt-1"><i class="fa-solid fa-shield-check mr-1"></i>Phục vụ nhân dân hiệu quả</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================================================== -->
+            <!-- SECTION 4: CẢI CÁCH HÀNH CHÍNH & DỊCH VỤ CÔNG SỐ                      -->
+            <!-- ===================================================================== -->
+            <section id="dich-vu-cong" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200 flex items-center space-x-3">
+                        <div class="p-3 bg-blue-100 text-[#0066B3] rounded-lg"><i class="fa-solid fa-folder-tree text-xl"></i></div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-semibold uppercase">Tổng số hồ sơ</p>
+                            <h4 class="text-xl font-black text-slate-800" id="stat-dvc-total">0</h4>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200 flex items-center space-x-3">
+                        <div class="p-3 bg-yellow-100 text-yellow-700 rounded-lg"><i class="fa-solid fa-hourglass-half text-xl"></i></div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-semibold uppercase">Đang xử lý</p>
+                            <h4 class="text-xl font-black text-slate-800" id="stat-dvc-pending">0</h4>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-200 flex items-center space-x-3">
+                        <div class="p-3 bg-emerald-100 text-emerald-700 rounded-lg"><i class="fa-solid fa-circle-check text-xl"></i></div>
+                        <div>
+                            <p class="text-xs text-slate-500 font-semibold uppercase">Đã hoàn thành</p>
+                            <h4 class="text-xl font-black text-slate-800" id="stat-dvc-done">0</h4>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LĨNH VỰC NỘP HỒ SƠ TRỰC TUYẾN -->
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-5 space-y-4">
+                    <div class="border-b pb-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                        <div>
+                            <h3 class="text-sm font-bold text-[#0066B3] uppercase flex items-center gap-2">
+                                <i class="fa-solid fa-compass text-red-600"></i> CỔNG DỊCH VỤ CÔNG TRỰC TUYẾN - CÔNG AN XÃ LONG HÀ
+                            </h3>
+                            <p class="text-xs text-slate-500 mt-0.5">Liên kết trực tiếp Cổng Dịch vụ công Bộ Công an / Quốc gia qua tài khoản định danh VNeID</p>
+                        </div>
+                        <a href="https://dichvucong.gov.vn/p/home/dvc-tra-cuu-ho-so.html" target="_blank" rel="noopener noreferrer" class="text-xs bg-[#0066B3] hover:bg-[#004A80] text-white font-bold px-3 py-1.5 rounded transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-magnifying-glass"></i> Tra cứu hồ sơ Quốc gia
+                        </a>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="border rounded-lg p-4 bg-slate-50 hover:border-[#0066B3] transition flex flex-col justify-between space-y-3">
+                            <div>
+                                <div class="flex items-center space-x-2 text-[#0066B3] mb-2">
+                                    <div class="w-8 h-8 rounded bg-blue-100 flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-house-chimney-user"></i></div>
+                                    <h4 class="font-bold text-xs uppercase text-slate-800">Đăng ký & Quản lý Cư trú</h4>
+                                </div>
+                                <ul class="text-[11px] text-slate-600 space-y-1 pl-2 list-disc list-inside">
+                                    <li>Đăng ký Thường trú / Tạm trú</li>
+                                    <li>Khai báo Tạm vắng / Lưu trú</li>
+                                    <li>Xác nhận thông tin cư trú (CT07)</li>
+                                </ul>
+                            </div>
+                            <a href="https://dichvucong.bocongan.gov.vn/" target="_blank" rel="noopener noreferrer" class="w-full bg-[#0066B3] hover:bg-[#004A80] text-white font-bold py-2 rounded text-xs text-center transition">
+                                Nộp Hồ Sơ Cư Trú <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>
+                            </a>
+                        </div>
+
+                        <div class="border rounded-lg p-4 bg-slate-50 hover:border-[#0066B3] transition flex flex-col justify-between space-y-3">
+                            <div>
+                                <div class="flex items-center space-x-2 text-red-700 mb-2">
+                                    <div class="w-8 h-8 rounded bg-red-100 flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-id-card"></i></div>
+                                    <h4 class="font-bold text-xs uppercase text-slate-800">Căn cước & Định danh VNeID</h4>
+                                </div>
+                                <ul class="text-[11px] text-slate-600 space-y-1 pl-2 list-disc list-inside">
+                                    <li>Cấp / Đổi thẻ Căn cước</li>
+                                    <li>Tích hợp giấy tờ vào VNeID</li>
+                                    <li>Cấp tài khoản Định danh điện tử</li>
+                                </ul>
+                            </div>
+                            <a href="https://dichvucong.bocongan.gov.vn/" target="_blank" rel="noopener noreferrer" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-2 rounded text-xs text-center transition">
+                                Nộp Hồ Sơ Căn Cước <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>
+                            </a>
+                        </div>
+
+                        <div class="border rounded-lg p-4 bg-slate-50 hover:border-[#0066B3] transition flex flex-col justify-between space-y-3">
+                            <div>
+                                <div class="flex items-center space-x-2 text-amber-700 mb-2">
+                                    <div class="w-8 h-8 rounded bg-amber-100 flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-fire-extinguisher"></i></div>
+                                    <h4 class="font-bold text-xs uppercase text-slate-800">An toàn PCCC & CNCH</h4>
+                                </div>
+                                <ul class="text-[11px] text-slate-600 space-y-1 pl-2 list-disc list-inside">
+                                    <li>Thẩm duyệt thiết kế PCCC</li>
+                                    <li>Kiểm tra an toàn PCCC hộ KD</li>
+                                    <li>Khai báo phương án PCCC cơ sở</li>
+                                </ul>
+                            </div>
+                            <a href="https://dichvucong.bocongan.gov.vn/" target="_blank" rel="noopener noreferrer" class="w-full bg-amber-700 hover:bg-amber-800 text-white font-bold py-2 rounded text-xs text-center transition">
+                                Nộp Hồ Sơ PCCC <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>
+                            </a>
+                        </div>
+
+                        <div class="border rounded-lg p-4 bg-slate-50 hover:border-[#0066B3] transition flex flex-col justify-between space-y-3">
+                            <div>
+                                <div class="flex items-center space-x-2 text-emerald-700 mb-2">
+                                    <div class="w-8 h-8 rounded bg-emerald-100 flex items-center justify-center font-bold text-sm"><i class="fa-solid fa-motorcycle"></i></div>
+                                    <h4 class="font-bold text-xs uppercase text-slate-800">Đăng ký Xe & Giao thông</h4>
+                                </div>
+                                <ul class="text-[11px] text-slate-600 space-y-1 pl-2 list-disc list-inside">
+                                    <li>Đăng ký xe máy lần đầu tại xã</li>
+                                    <li>Sang tên, thu hồi đăng ký biển số</li>
+                                    <li>Nộp phạt vi phạm giao thông</li>
+                                </ul>
+                            </div>
+                            <a href="https://dichvucong.bocongan.gov.vn/" target="_blank" rel="noopener noreferrer" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 rounded text-xs text-center transition">
+                                Đăng Ký Xe / Nộp Phạt <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DANH SÁCH HỒ SƠ DVC -->
+                <div class="bg-white rounded-lg shadow-sm border border-slate-200 p-5">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b pb-3">
+                        <h3 class="text-sm font-bold text-[#0066B3] uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-list-ol text-red-600"></i> THEO DÕI HỒ SƠ DỊCH VỤ CÔNG TẠI CÔNG AN XÃ LONG HÀ
+                        </h3>
+                        <div class="flex flex-wrap gap-2 items-center">
+                            <input type="text" id="dvc-search-input" onkeyup="filterDvcData()" placeholder="Tìm Mã HS, Tên, Thủ tục..." class="text-xs border border-slate-300 rounded px-3 py-1.5 focus:outline-none focus:border-[#0066B3]">
+                            <button onclick="filterDvcStatus('all')" class="text-xs bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded font-bold text-slate-700">Tất cả</button>
+                            <button onclick="filterDvcStatus('Đang xử lý')" class="text-xs bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-2.5 py-1.5 rounded font-bold">Đang xử lý</button>
+                            <button onclick="filterDvcStatus('Đã hoàn thành')" class="text-xs bg-emerald-100 hover:bg-emerald-200 text-emerald-800 px-2.5 py-1.5 rounded font-bold">Đã hoàn thành</button>
+                            <button onclick="exportData('dvc')" class="text-xs bg-slate-800 hover:bg-slate-900 text-white font-bold px-2.5 py-1.5 rounded shadow">
+                                <i class="fa-solid fa-download mr-1"></i> Xuất Data
+                            </button>
+                            <button onclick="openDvcModal()" class="text-xs bg-[#0066B3] hover:bg-[#004A80] text-white font-bold px-3 py-1.5 rounded shadow role-officer-or-admin hidden">
+                                <i class="fa-solid fa-plus mr-1"></i> Thêm Hồ Sơ
                             </button>
                         </div>
                     </div>
 
                     <div class="overflow-x-auto">
                         <table class="w-full text-left text-xs text-slate-600">
-                            <thead class="bg-slate-100 text-slate-700 uppercase font-bold text-[11px]">
+                            <thead class="bg-[#0066B3] text-white uppercase font-bold text-[11px]">
                                 <tr>
-                                    <th class="p-2.5">Nhiệm vụ</th>
-                                    <th class="p-2.5">CBCS Thực hiện</th>
-                                    <th class="p-2.5">Hạn hoàn thành</th>
-                                    <th class="p-2.5">Mức độ</th>
-                                    <th class="p-2.5">Trạng thái</th>
-                                    <th class="p-2.5 text-center admin-only hidden">Thao tác ADMIN</th>
+                                    <th class="p-2.5">Mã Hồ Sơ</th>
+                                    <th class="p-2.5">Tên Thủ Tục</th>
+                                    <th class="p-2.5">Người Nộp / SĐT</th>
+                                    <th class="p-2.5">Ngày Tiếp Nhận</th>
+                                    <th class="p-2.5">Hạn Giải Quyết</th>
+                                    <th class="p-2.5">Cán Bộ Phụ Trách</th>
+                                    <th class="p-2.5">Trạng Thái</th>
+                                    <th class="p-2.5 text-center role-officer-or-admin hidden">Thao Tác</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100" id="task-list-body">
-                            </tbody>
+                            <tbody class="divide-y divide-slate-200" id="dvc-list-body"></tbody>
                         </table>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- SECTION 3: CÁN BỘ SỐ (ĐÃ ĐƯỢC BỔ SUNG ĐẦY ĐỦ CHỨC NĂNG NGHIỆP VỤ) -->
-        <section id="can-bo-so" class="tab-content hidden space-y-6">
-            <!-- TỔNG QUAN CHỈ SỐ LÀM VIỆC CỦA CÁN BỘ -->
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
-                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-3 mb-4 gap-2">
-                    <h3 class="text-sm font-bold text-slate-800 uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-clipboard-user text-red-600"></i> BẢNG TÁC CHIẾN & CHỈ TIÊU NHIỆM VỤ CỦA CÁN BỘ
-                    </h3>
-                    <div class="flex items-center gap-2">
-                        <button onclick="checkInOfficerVneid()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow transition flex items-center gap-1">
-                            <i class="fa-solid fa-fingerprint"></i> Điểm danh VNeID
+            <!-- ===================================================================== -->
+            <!-- SECTION 5: TRỢ LÝ AI PHÁP LUẬT                                        -->
+            <!-- ===================================================================== -->
+            <section id="tro-ly-ai" class="tab-content hidden space-y-6">
+                <div class="bg-white rounded-lg shadow-sm border border-slate-300 flex flex-col h-[580px]">
+                    <div class="bg-[#0066B3] text-white p-4 rounded-t-lg flex justify-between items-center border-b border-blue-800">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-full bg-yellow-400 text-[#004A80] flex items-center justify-center text-xl font-black shadow">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <div>
+                                <div class="flex items-center gap-2">
+                                    <h3 class="font-bold text-white text-sm sm:text-base">TRỢ LÝ AI NGHIỆP VỤ & PHÁP LUẬT - CÔNG AN XÃ LONG HÀ</h3>
+                                    <span class="bg-red-600 text-[10px] font-bold text-white px-2 py-0.5 rounded">24/7</span>
+                                </div>
+                                <p class="text-xs text-blue-100">Hỗ trợ giải đáp thủ tục hành chính, cư trú, Căn cước, VNeID và quy định pháp luật</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex-grow p-4 overflow-y-auto space-y-4 bg-slate-50 text-xs" id="ai-chat-box">
+                        <div class="flex items-start space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-[#0066B3] text-white flex items-center justify-center font-bold flex-shrink-0 text-xs shadow">AI</div>
+                            <div class="bg-white p-3.5 rounded-2xl rounded-tl-none shadow-sm border border-slate-200 max-w-[85%] text-slate-800 leading-relaxed space-y-2">
+                                <p class="font-bold text-[#0066B3]">Kính chào Đồng chí / Công dân! Tôi là Trợ lý AI của Công an xã Long Hà.</p>
+                                <p>Vui lòng chọn chủ đề tra cứu nhanh bên dưới hoặc nhập câu hỏi trực tiếp:</p>
+                                
+                                <div class="pt-2 flex flex-wrap gap-2">
+                                    <button onclick="askQuickQuestion('Mức phạt vi phạm nồng độ cồn theo Nghị định mới nhất')" class="bg-red-50 hover:bg-red-100 text-red-700 px-2.5 py-1.5 rounded border border-red-200 font-medium transition">
+                                        <i class="fa-solid fa-wine-glass mr-1"></i> Mức phạt nồng độ cồn
+                                    </button>
+                                    <button onclick="askQuickQuestion('Thủ tục đăng ký tạm trú cho công nhân thuê trọ')" class="bg-blue-50 hover:bg-blue-100 text-[#0066B3] px-2.5 py-1.5 rounded border border-blue-200 font-medium transition">
+                                        <i class="fa-solid fa-id-card mr-1"></i> Thủ tục đăng ký tạm trú
+                                    </button>
+                                    <button onclick="askQuickQuestion('Quy định an toàn PCCC cho nhà ở kết hợp sản xuất kinh doanh')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 px-2.5 py-1.5 rounded border border-amber-200 font-medium transition">
+                                        <i class="fa-solid fa-fire-extinguisher mr-1"></i> An toàn PCCC hộ kinh doanh
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-white border-t border-slate-200 rounded-b-lg flex gap-2 items-center">
+                        <input type="text" id="ai-input" placeholder="Nhập câu hỏi thủ tục hành chính hoặc pháp luật cần tra cứu..." class="flex-grow border border-slate-300 rounded px-3 py-2 text-xs focus:outline-none focus:border-[#0066B3]" onkeypress="if(event.key==='Enter') sendAiMessage()">
+                        <button onclick="sendAiMessage()" class="bg-[#0066B3] hover:bg-[#004A80] text-white px-4 py-2 rounded font-bold text-xs transition flex items-center gap-1.5 shadow">
+                            <span>Gửi câu hỏi</span>
+                            <i class="fa-solid fa-paper-plane"></i>
                         </button>
                     </div>
                 </div>
+            </section>
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
-                    <div class="p-4 bg-red-50 border border-red-200 rounded-xl relative">
-                        <h4 class="font-bold text-red-800 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-clock"></i> Ca trực tác chiến</h4>
-                        <p class="text-slate-800 font-bold mt-2 text-sm" id="officer-duty-shift">Tổ 1: TRỰC BAN CAX (24/24h)</p>
-                        <p class="text-slate-600 text-[11px] mt-1" id="officer-checkin-status"><i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Đã điểm danh VNeID lúc 07:30 AM</p>
-                    </div>
-                    <div class="p-4 bg-blue-50 border border-blue-200 rounded-xl">
-                        <h4 class="font-bold text-blue-800 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-folder-open"></i> Hồ sơ chờ xử lý</h4>
-                        <p class="text-slate-700 font-medium mt-2"><span id="stat-officer-pending-dvc" class="text-xl font-black text-blue-900">0</span> hồ sơ dịch vụ công đang xử lý</p>
-                        <p class="text-slate-500 text-[11px] mt-1"><i class="fa-solid fa-triangle-exclamation text-amber-600 mr-1"></i> Ưu tiên CT07 & Đăng ký Tạm trú</p>
-                    </div>
-                    <div class="p-4 bg-emerald-50 border border-emerald-200 rounded-xl">
-                        <h4 class="font-bold text-emerald-800 mb-1 flex items-center gap-1.5"><i class="fa-solid fa-check-double"></i> Kết quả trong ngày</h4>
-                        <p class="text-slate-700 font-medium mt-2">Đã giải quyết: <strong class="text-emerald-900 text-base">12 hồ sơ</strong></p>
-                        <p class="text-slate-500 text-[11px] mt-1"><i class="fa-solid fa-star text-yellow-500 mr-1"></i> Đạt 100% chỉ tiêu trong ngày</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <!-- DANH BẠ NỘI BỘ VÀ TRẠNG THÁI CÁN BỘ -->
-                <div class="lg:col-span-5 bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-center border-b pb-3 mb-4">
-                            <h3 class="text-sm font-bold text-slate-800 uppercase flex items-center gap-2">
-                                <i class="fa-solid fa-users-line text-red-600"></i> DANH BẠ & LỊCH TRỰC CÁN BỘ
-                            </h3>
-                            <span class="text-[11px] bg-red-100 text-red-800 font-bold px-2 py-0.5 rounded">Trực ban 24/7</span>
-                        </div>
-
-                        <div class="space-y-3 overflow-y-auto max-h-[380px] pr-1" id="officer-duty-directory">
-                            <!-- Javascript renders officer directory here -->
-                        </div>
-                    </div>
-                </div>
-
-                <!-- NHẬT KÝ TÁC CHIẾN VÀ GHI CHÚ NGHIỆP VỤ -->
-                <div class="lg:col-span-7 bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-center border-b pb-3 mb-4">
-                            <h3 class="text-sm font-bold text-slate-800 uppercase flex items-center gap-2">
-                                <i class="fa-solid fa-book-bookmark text-red-600"></i> NHẬT KÝ TÁC CHIẾN & GHI CHÚ NGHIỆP VỤ
-                            </h3>
-                            <button onclick="openOfficerLogModal()" class="role-officer-or-admin hidden text-xs bg-red-700 hover:bg-red-800 text-white font-bold px-3 py-1.5 rounded-lg transition shadow flex items-center gap-1">
-                                <i class="fa-solid fa-plus"></i> Thêm Ghi Chú Tác Chiến
-                            </button>
-                        </div>
-
-                        <div class="space-y-3 overflow-y-auto max-h-[380px] pr-1" id="officer-logs-container">
-                            <!-- Javascript renders logs here -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 4: DỊCH VỤ CÔNG SỐ -->
-        <section id="dich-vu-cong" class="tab-content hidden space-y-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex items-center space-x-3">
-                    <div class="p-3 bg-red-100 text-red-700 rounded-xl"><i class="fa-solid fa-folder-tree text-xl"></i></div>
-                    <div>
-                        <p class="text-xs text-slate-500 font-semibold uppercase">Tổng số hồ sơ</p>
-                        <h4 class="text-xl font-black text-slate-800" id="stat-dvc-total">0</h4>
-                    </div>
-                </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex items-center space-x-3">
-                    <div class="p-3 bg-yellow-100 text-yellow-700 rounded-xl"><i class="fa-solid fa-hourglass-half text-xl"></i></div>
-                    <div>
-                        <p class="text-xs text-slate-500 font-semibold uppercase">Đang xử lý</p>
-                        <h4 class="text-xl font-black text-slate-800" id="stat-dvc-pending">0</h4>
-                    </div>
-                </div>
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 flex items-center space-x-3">
-                    <div class="p-3 bg-emerald-100 text-emerald-700 rounded-xl"><i class="fa-solid fa-circle-check text-xl"></i></div>
-                    <div>
-                        <p class="text-xs text-slate-500 font-semibold uppercase">Đã hoàn thành</p>
-                        <h4 class="text-xl font-black text-slate-800" id="stat-dvc-done">0</h4>
-                    </div>
-                </div>
-            </div>
-
-            <!-- HƯỚNG DẪN & LINK ĐĂNG NHẬP DVC QUỐC GIA -->
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 space-y-4">
-                <div class="border-b pb-3 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                    <div>
-                        <h3 class="text-sm font-bold text-slate-800 uppercase flex items-center gap-2">
-                            <i class="fa-solid fa-compass text-red-600"></i> HƯỚNG DẪN & LĨNH VỰC NỘP HỒ SƠ TRỰC TUYẾN DVC QUỐC GIA / BỘ CÔNG AN
-                        </h3>
-                        <p class="text-xs text-slate-500 mt-0.5">Chọn đúng lĩnh vực cần thực hiện để liên kết đến Cổng Dịch vụ công Quốc gia qua VNeID Định danh điện tử</p>
-                    </div>
-                    <a href="https://dichvucong.gov.vn/p/home/dvc-tra-cuu-ho-so.html" target="_blank" rel="noopener noreferrer" class="text-xs bg-red-50 hover:bg-red-100 text-red-700 font-bold px-3 py-1.5 rounded-lg border border-red-200 transition flex items-center gap-1.5 whitespace-nowrap">
-                        <i class="fa-solid fa-magnifying-glass"></i> Tra cứu hồ sơ Quốc gia
-                    </a>
-                </div>
-
-                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-200 text-xs">
-                    <p class="font-bold text-slate-800 mb-2 flex items-center gap-1.5">
-                        <i class="fa-solid fa-circle-info text-blue-600"></i> Quy trình 4 bước Nộp hồ sơ trực tuyến dành cho Công dân:
-                    </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-[11px]">
-                        <div class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm">
-                            <span class="font-black text-red-700">Bước 1:</span> Chọn lĩnh vực bên dưới và bấm <strong>"Nộp Hồ Sơ Trực Tuyến"</strong>
-                        </div>
-                        <div class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm">
-                            <span class="font-black text-red-700">Bước 2:</span> Đăng nhập bằng tài khoản <strong>VNeID Cấp độ 2</strong> hoặc Cổng DVC
-                        </div>
-                        <div class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm">
-                            <span class="font-black text-red-700">Bước 3:</span> Điền đầy đủ thông tin mẫu tờ khai và đính kèm giấy tờ (ảnh/PDF)
-                        </div>
-                        <div class="bg-white p-2.5 rounded-lg border border-slate-200 shadow-sm">
-                            <span class="font-black text-red-700">Bước 4:</span> Theo dõi mã hồ sơ và nhận kết quả tại Công an xã hoặc bưu điện
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <div class="border rounded-xl p-4 bg-white hover:border-red-500 hover:shadow-md transition flex flex-col justify-between space-y-3">
-                        <div>
-                            <div class="flex items-center space-x-2 text-red-700 mb-2">
-                                <div class="w-8 h-8 rounded-lg bg-red-100 flex items-center justify-center font-bold text-sm">
-                                    <i class="fa-solid fa-house-chimney-user"></i>
-                                </div>
-                                <h4 class="font-bold text-xs uppercase text-slate-800">Đăng ký & Quản lý Cư trú</h4>
-                            </div>
-                            <ul class="text-[11px] text-slate-600 space-y-1 pl-2 list-disc list-inside">
-                                <li>Đăng ký Thường trú / Tạm trú</li>
-                                <li>Khai báo Tạm vắng / Lưu trú</li>
-                                <li>Xác nhận thông tin cư trú (CT07)</li>
-                            </ul>
-                        </div>
-                        <a href="https://dichvucong.bocongan.gov.vn/bocongan/bothutuc/listThuTuc?co_quan_cha=&loai_co_quan=&co_quan_con=&linh_vuc=&muc_do=&tukhoa=thường trú&doi_tuong=&cap_thuc_hien=&co_quan_cuc=&co_quan_tinh=CA_DONGNAI&co_quan_huyen=&co_quan_xa=CA_DONGNAI_25261_PHUTRUNG" target="_blank" rel="noopener noreferrer" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-2 rounded-lg text-xs text-center transition flex items-center justify-center gap-1.5 shadow">
-                            <span>Nộp Hồ Sơ Cư Trú</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                        </a>
-                    </div>
-
-                    <div class="border rounded-xl p-4 bg-white hover:border-blue-500 hover:shadow-md transition flex flex-col justify-between space-y-3">
-                        <div>
-                            <div class="flex items-center space-x-2 text-blue-700 mb-2">
-                                <div class="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center font-bold text-sm">
-                                    <i class="fa-solid fa-id-card"></i>
-                                </div>
-                                <h4 class="font-bold text-xs uppercase text-slate-800">Căn cước & Định danh VNeID</h4>
-                            </div>
-                            <ul class="text-[11px] text-slate-600 space-y-1 pl-2 list-disc list-inside">
-                                <li>Cấp / Đổi thẻ Căn cước</li>
-                                <li>Tích hợp giấy tờ vào VNeID</li>
-                                <li>Cấp tài khoản Định danh điện tử</li>
-                            </ul>
-                        </div>
-                        <a href="https://dichvucong.bocongan.gov.vn/bocongan/bothutuc/listThuTuc?co_quan_cha=&loai_co_quan=&co_quan_con=&linh_vuc=&muc_do=&tukhoa=CĂN CƯỚC&doi_tuong=&cap_thuc_hien=&co_quan_cuc=&co_quan_tinh=CA_DONGNAI&co_quan_huyen=&co_quan_xa=CA_DONGNAI_25261_PHUTRUNG" target="_blank" rel="noopener noreferrer" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 rounded-lg text-xs text-center transition flex items-center justify-center gap-1.5 shadow">
-                            <span>Nộp Hồ Sơ Căn Cước</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                        </a>
-                    </div>
-
-                    <div class="border rounded-xl p-4 bg-white hover:border-amber-500 hover:shadow-md transition flex flex-col justify-between space-y-3">
-                        <div>
-                            <div class="flex items-center space-x-2 text-amber-700 mb-2">
-                                <div class="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center font-bold text-sm">
-                                    <i class="fa-solid fa-fire-extinguisher"></i>
-                                </div>
-                                <h4 class="font-bold text-xs uppercase text-slate-800">An toàn PCCC & CNCH</h4>
-                            </div>
-                            <ul class="text-[11px] text-slate-600 space-y-1 pl-2 list-disc list-inside">
-                                <li>Thẩm duyệt thiết kế PCCC</li>
-                                <li>Kiểm tra an toàn PCCC hộ KD</li>
-                                <li>Khai báo phương án PCCC cơ sở</li>
-                            </ul>
-                        </div>
-                        <a href="https://dichvucong.bocongan.gov.vn/bocongan/bothutuc/listThuTuc?co_quan_cha=&loai_co_quan=&co_quan_con=&linh_vuc=PC_CHUA_CHAY&muc_do=&tukhoa=&doi_tuong=&cap_thuc_hien=&co_quan_cuc=&co_quan_tinh=CA_DONGNAI&co_quan_huyen=&co_quan_xa=CA_DONGNAI_25261_PHUTRUNG" target="_blank" rel="noopener noreferrer" class="w-full bg-amber-700 hover:bg-amber-800 text-white font-bold py-2 rounded-lg text-xs text-center transition flex items-center justify-center gap-1.5 shadow">
-                            <span>Nộp Hồ Sơ PCCC</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                        </a>
-                    </div>
-
-                    <div class="border rounded-xl p-4 bg-white hover:border-emerald-500 hover:shadow-md transition flex flex-col justify-between space-y-3">
-                        <div>
-                            <div class="flex items-center space-x-2 text-emerald-700 mb-2">
-                                <div class="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center font-bold text-sm">
-                                    <i class="fa-solid fa-motorcycle"></i>
-                                </div>
-                                <h4 class="font-bold text-xs uppercase text-slate-800">Đăng ký Xe & Giao thông</h4>
-                            </div>
-                            <ul class="text-[11px] text-slate-600 space-y-1 pl-2 list-disc list-inside">
-                                <li>Đăng ký xe máy lần đầu tại xã</li>
-                                <li>Sang tên, thu hồi đăng ký biển số</li>
-                                <li>Nộp phạt vi phạm giao thông</li>
-                            </ul>
-                        </div>
-                        <a href="https://dichvucong.bocongan.gov.vn/bocongan/bothutuc/listThuTuc?co_quan_cha=&loai_co_quan=&co_quan_con=&linh_vuc=PT_GIAO_THONG&muc_do=&tukhoa=&doi_tuong=&cap_thuc_hien=&co_quan_cuc=&co_quan_tinh=CA_DONGNAI&co_quan_huyen=&co_quan_xa=CA_DONGNAI_25261_PHUTRUNG" target="_blank" rel="noopener noreferrer" class="w-full bg-emerald-700 hover:bg-emerald-800 text-white font-bold py-2 rounded-lg text-xs text-center transition flex items-center justify-center gap-1.5 shadow">
-                            <span>Đăng Ký Xe / Nộp Phạt</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b pb-3">
-                    <h3 class="text-sm font-bold text-slate-800 uppercase flex items-center gap-2">
-                        <i class="fa-solid fa-list-ol text-red-600"></i> DANH SÁCH HỒ SƠ DỊCH VỤ CÔNG TẠI CÔNG AN XÃ
-                    </h3>
-                    <div class="flex flex-wrap gap-2 items-center">
-                        <input type="text" id="dvc-search-input" onkeyup="filterDvcData()" placeholder="Tìm Mã HS, Tên, Thủ tục..." class="text-xs border border-slate-300 rounded-lg px-3 py-1.5 focus:outline-none focus:border-red-600">
-                        <button onclick="filterDvcStatus('all')" class="text-xs bg-slate-100 hover:bg-slate-200 px-2.5 py-1.5 rounded-lg font-bold text-slate-700">Tất cả</button>
-                        <button onclick="filterDvcStatus('Đang xử lý')" class="text-xs bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-2.5 py-1.5 rounded-lg font-bold">Đang xử lý</button>
-                        <button onclick="filterDvcStatus('Đã hoàn thành')" class="text-xs bg-emerald-100 hover:bg-emerald-200 text-emerald-800 px-2.5 py-1.5 rounded-lg font-bold">Đã hoàn thành</button>
-                        <button onclick="exportData('dvc')" class="text-xs bg-slate-800 hover:bg-slate-900 text-white font-bold px-2.5 py-1.5 rounded-lg shadow flex items-center gap-1">
-                            <i class="fa-solid fa-download"></i> Xuất Data
-                        </button>
-                        <button onclick="openDvcModal()" class="text-xs bg-red-700 hover:bg-red-800 text-white font-bold px-3 py-1.5 rounded-lg shadow role-officer-or-admin hidden">
-                            <i class="fa-solid fa-plus"></i> Thêm Hồ Sơ
-                        </button>
-                    </div>
-                </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs text-slate-600">
-                        <thead class="bg-slate-100 text-slate-700 uppercase font-bold text-[11px]">
-                            <tr>
-                                <th class="p-2.5">Mã Hồ Sơ</th>
-                                <th class="p-2.5">Tên Thủ Tục</th>
-                                <th class="p-2.5">Người Nộp / SĐT</th>
-                                <th class="p-2.5">Ngày Tiếp Nhận</th>
-                                <th class="p-2.5">Hạn Giải Quyết</th>
-                                <th class="p-2.5">Cán Bộ Phụ Trách</th>
-                                <th class="p-2.5">Trạng Thái</th>
-                                <th class="p-2.5 text-center role-officer-or-admin hidden">Thao Tác</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-100" id="dvc-list-body">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 5: TRỢ LÝ AI -->
-        <section id="tro-ly-ai" class="tab-content hidden space-y-6">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[620px]">
-                <div class="bg-slate-900 text-white p-4 rounded-t-xl flex justify-between items-center border-b border-yellow-500/30">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-full bg-yellow-400 text-slate-900 flex items-center justify-center text-xl font-black shadow">
-                            <i class="fa-solid fa-robot"></i>
-                        </div>
-                        <div>
-                            <div class="flex items-center gap-2">
-                                <h3 class="font-bold text-yellow-400 text-sm sm:text-base">TRỢ LÝ AI NGHIỆP VỤ CÔNG AN XÃ PHÚ TRUNG</h3>
-                                <span class="bg-red-600 text-[10px] font-bold text-white px-2 py-0.5 rounded">PHIÊN BẢN 3.0</span>
-                            </div>
-                            <p class="text-xs text-slate-300">Hỗ trợ tra cứu Pháp luật, Nghị định, Thông tư & Quy trình nghiệp vụ 24/7</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex-grow p-4 overflow-y-auto space-y-4 bg-slate-50 text-xs" id="ai-chat-box">
-                    <div class="flex items-start space-x-2">
-                        <div class="w-8 h-8 rounded-full bg-yellow-500 text-slate-900 flex items-center justify-center font-bold flex-shrink-0 text-xs shadow">AI</div>
-                        <div class="bg-white p-3.5 rounded-2xl rounded-tl-none shadow-sm border border-slate-200 max-w-[85%] text-slate-800 leading-relaxed space-y-2">
-                            <p class="font-bold text-red-700">Kính chào Đồng chí / Công dân! Tôi là Trợ lý AI Nghiệp vụ Công an Xã Phú Trung.</p>
-                            <p>Tôi có thể hỗ trợ tra cứu nhanh các văn bản pháp luật, quy trình xử lý hành chính, quy định cư trú, an toàn PCCC và Thông tư ngành. Vui lòng chọn chủ đề bên dưới hoặc nhập câu hỏi trực tiếp:</p>
-                            
-                            <div class="pt-2 flex flex-wrap gap-2">
-                                <button onclick="askQuickQuestion('Mức phạt vi phạm nồng độ cồn theo Nghị định mới nhất')" class="bg-red-50 hover:bg-red-100 text-red-700 px-2.5 py-1.5 rounded-lg border border-red-200 font-medium transition flex items-center gap-1">
-                                    <i class="fa-solid fa-wine-glass text-xs"></i> Mức phạt nồng độ cồn
-                                </button>
-                                <button onclick="askQuickQuestion('Thủ tục đăng ký tạm trú cho công nhân thuê trọ')" class="bg-blue-50 hover:bg-blue-100 text-blue-700 px-2.5 py-1.5 rounded-lg border border-blue-200 font-medium transition flex items-center gap-1">
-                                    <i class="fa-solid fa-id-card text-xs"></i> Thủ tục đăng ký tạm trú
-                                </button>
-                                <button onclick="askQuickQuestion('Quy định an toàn PCCC cho nhà ở kết hợp sản xuất kinh doanh')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 px-2.5 py-1.5 rounded-lg border border-amber-200 font-medium transition flex items-center gap-1">
-                                    <i class="fa-solid fa-fire-extinguisher text-xs"></i> An toàn PCCC hộ kinh doanh
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="p-3 bg-white border-t border-slate-200 rounded-b-xl flex gap-2 items-center">
-                    <input type="text" id="ai-input" placeholder="Nhập câu hỏi nghiệp vụ hoặc quy định cần tra cứu..." class="flex-grow border border-slate-300 rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-red-600" onkeypress="if(event.key==='Enter') sendAiMessage()">
-                    <button onclick="sendAiMessage()" class="bg-red-700 hover:bg-red-800 text-white px-4 py-2 rounded-lg font-bold text-xs transition flex items-center gap-1.5 shadow">
-                        <span>Gửi</span>
-                        <i class="fa-solid fa-paper-plane"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- SECTION 6: PHẢN ÁNH NHÂN DÂN -->
-        <section id="phan-anh-dan" class="tab-content hidden space-y-6">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <div class="lg:col-span-5 bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
-                    <div>
+            <!-- ===================================================================== -->
+            <!-- SECTION 6: TIẾP NHẬN PHẢN ÁNH NHÂN DÂN                                -->
+            <!-- ===================================================================== -->
+            <section id="phan-anh-dan" class="tab-content hidden space-y-6">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 bg-white rounded-lg shadow-sm border border-slate-200 p-5">
                         <div class="border-b pb-3 mb-4">
-                            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider"><i class="fa-solid fa-satellite-dish mr-1"></i> Kênh Tiếp Nhận Trực Tuyến</span>
-                            <h3 class="text-base font-bold text-slate-800 mt-1">CỔNG TIẾP NHẬN PHẢN ÁNH ANTT XÃ PHÚ TRUNG</h3>
+                            <span class="text-xs font-bold text-[#0066B3] uppercase"><i class="fa-solid fa-satellite-dish mr-1"></i> Kênh Tiếp Nhận Trực Tuyến</span>
+                            <h3 class="text-base font-bold text-slate-800 mt-1">GỬI PHẢN ÁNH ANTT ĐẾN CÔNG AN XÃ LONG HÀ</h3>
                         </div>
 
                         <form onsubmit="handleCitizenReport(event)" class="space-y-3 text-xs">
                             <div>
                                 <label class="block font-bold text-slate-700 mb-1">Loại hình phản ánh <span class="text-red-500">*</span></label>
-                                <select id="reporter-category" class="w-full border border-slate-300 rounded-lg p-2 focus:outline-none focus:border-red-600 bg-white font-medium">
+                                <select id="reporter-category" class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-[#0066B3] bg-white font-medium">
                                     <option value="Trật tự xã hội">Trật tự xã hội / An ninh trật tự</option>
                                     <option value="PCCC & CNCH">Nguy cơ cháy nổ / An toàn PCCC</option>
                                     <option value="Trật tự giao thông">Vi phạm trật tự An toàn giao thông</option>
@@ -689,115 +629,119 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
                                     <label class="block font-bold text-slate-700 mb-1">Họ tên người gửi:</label>
-                                    <input type="text" id="reporter-name" placeholder="Nguyễn Văn X" class="w-full border border-slate-300 rounded-lg p-2 focus:outline-none focus:border-red-600">
+                                    <input type="text" id="reporter-name" placeholder="Nguyễn Văn A" class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-[#0066B3]">
                                 </div>
                                 <div>
                                     <label class="block font-bold text-slate-700 mb-1">Số điện thoại:</label>
-                                    <input type="tel" id="reporter-phone" placeholder="09x xxx xxxx" class="w-full border border-slate-300 rounded-lg p-2 focus:outline-none focus:border-red-600">
+                                    <input type="tel" id="reporter-phone" placeholder="09x xxx xxxx" class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-[#0066B3]">
                                 </div>
                             </div>
 
                             <div>
                                 <label class="block font-bold text-slate-700 mb-1">Địa điểm xảy ra sự việc <span class="text-red-500">*</span></label>
-                                <select id="reporter-location" class="w-full border border-slate-300 rounded-lg p-2 focus:outline-none focus:border-red-600 bg-white">
-                                    <option value="THÔN PHÚ AN">THÔN PHÚ AN, Xã Phú Trung</option>
-                                    <option value="THÔN PHÚ NGHĨA">THÔN PHÚ NGHĨA, Xã Phú Trung</option>
-                                    <option value="THÔN ĐỒNG TÂM">THÔN ĐỒNG TÂM, Xã Phú Trung</option>
-                                    <option value="THÔN ĐỒNG TIẾN">THÔN ĐỒNG TIẾN, Xã Phú Trung</option>
+                                <select id="reporter-location" class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-[#0066B3] bg-white">
+                                    <option value="THÔN LONG HÀ 1">THÔN LONG HÀ 1, Xã Long Hà</option>
+                                    <option value="THÔN LONG HÀ 2">THÔN LONG HÀ 2, Xã Long Hà</option>
+                                    <option value="THÔN LONG BÌNH">THÔN LONG BÌNH, Xã Long Hà</option>
+                                    <option value="THÔN LONG TÂN">THÔN LONG TÂN, Xã Long Hà</option>
                                 </select>
                             </div>
 
                             <div>
                                 <label class="block font-bold text-slate-700 mb-1">Nội dung chi tiết <span class="text-red-500">*</span></label>
-                                <textarea id="reporter-content" rows="3" required placeholder="Mô tả sự việc chi tiết..." class="w-full border border-slate-300 rounded-lg p-2 focus:outline-none focus:border-red-600"></textarea>
+                                <textarea id="reporter-content" rows="3" required placeholder="Mô tả sự việc chi tiết..." class="w-full border border-slate-300 rounded p-2 focus:outline-none focus:border-[#0066B3]"></textarea>
                             </div>
 
-                            <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2.5 rounded-lg transition shadow flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-paper-plane"></i> GỬI PHẢN ÁNH ĐẾN CÔNG AN XÃ
+                            <button type="submit" class="w-full bg-[#0066B3] hover:bg-[#004A80] text-white font-bold py-2.5 rounded transition shadow flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane"></i> GỬI PHẢN ÁNH ĐẾN CÔNG AN XÃ LONG HÀ
                             </button>
                         </form>
                     </div>
-                </div>
 
-                <div class="lg:col-span-7 bg-white rounded-xl shadow-sm border border-slate-200 p-5 flex flex-col justify-between">
-                    <div>
+                    <div class="lg:col-span-7 bg-white rounded-lg shadow-sm border border-slate-200 p-5">
                         <div class="flex justify-between items-center border-b pb-3 mb-4">
-                            <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
-                                <i class="fa-solid fa-list-check text-emerald-600"></i> NHẬT KÝ TIẾP NHẬN PHẢN ÁNH
+                            <h3 class="text-base font-bold text-[#0066B3] flex items-center gap-2">
+                                <i class="fa-solid fa-list-check text-red-600"></i> NHẬT KÝ TIẾP NHẬN PHẢN ÁNH
                             </h3>
-                            <button onclick="resetReportFilter()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold px-2 py-1 rounded">Xóa lọc</button>
+                            <button onclick="resetReportFilter()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold px-2.5 py-1 rounded">Xóa lọc</button>
                         </div>
-                        <div class="space-y-3 overflow-y-auto max-h-[500px] pr-1" id="reports-stream">
-                        </div>
+                        <div class="space-y-3 overflow-y-auto max-h-[500px] pr-1" id="reports-stream"></div>
                     </div>
                 </div>
+            </section>
+
+        </main>
+
+        <!-- 6. FOOTER CỔNG THÔNG TIN -->
+        <footer class="bg-[#004A80] text-white text-xs py-5 px-4 border-t-4 border-[#FFD700] mt-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+                <div class="space-y-1">
+                    <p class="font-black uppercase text-sm text-yellow-300">TRANG THÔNG TIN ĐIỆN TỬ - CÔNG AN XÃ LONG HÀ</p>
+                    <p class="text-blue-100">Địa chỉ: Trụ sở Công an xã Long Hà, Thành Phố Đồng Nai • Điện thoại trực ban 24/7: <strong>0865.112.845</strong></p>
+                    <p class="text-blue-200 text-[11px]">Tuân thủ quy định bảo vệ bí mật Nhà nước theo Thông tư 126/2025/TT-BCA</p>
+                </div>
+                <div class="flex flex-col items-center md:items-end gap-1.5 text-[11px]">
+                    <div class="flex gap-3">
+                        <button onclick="resetAllSystemData()" class="text-yellow-300 hover:underline"><i class="fa-solid fa-rotate-left mr-1"></i> Khôi phục dữ liệu gốc</button>
+                        <span>|</span>
+                        <button onclick="toggleSecurityModal()" class="text-blue-100 hover:underline">Quy định bảo mật</button>
+                    </div>
+                    <span class="text-blue-200">© 2026 Bản quyền thuộc Công an xã Long Hà</span>
+                </div>
             </div>
-        </section>
+        </footer>
+    </div>
 
-    </main>
-
-    <footer class="bg-slate-900 text-slate-400 text-xs py-6 border-t border-slate-800 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
-            <p class="font-bold text-slate-300">CỔNG THÔNG TIN ĐIỆN TỬ CHUYỂN ĐỔI SỐ - CÔNG AN XÃ PHÚ TRUNG</p>
-            <p class="text-slate-500">Phát triển nâng cấp chuẩn hóa 2026 - Đáp ứng Thông tư 126/2025/TT-BCA</p>
-            <div class="flex justify-center space-x-4 text-[11px] pt-1">
-                <button onclick="resetAllSystemData()" class="text-red-400 hover:underline"><i class="fa-solid fa-rotate-left mr-1"></i> Khôi phục dữ liệu gốc</button>
-                <span>•</span>
-                <a href="#" onclick="toggleSecurityModal()" class="hover:underline">Chính sách bảo mật</a>
-            </div>
-        </div>
-    </footer>
-
-    <!-- MODALS -->
+    <!-- ===================================================================== -->
+    <!-- CÁC HỘP THOẠI MODAL HỆ THỐNG                                          -->
+    <!-- ===================================================================== -->
     <div id="vneid-qr-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl max-w-sm w-full p-6 shadow-2xl border-t-4 border-red-600 text-center relative">
+        <div class="bg-white rounded-lg max-w-sm w-full p-6 shadow-2xl border-t-4 border-[#0066B3] text-center relative">
             <button onclick="toggleQrModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 font-bold">✕</button>
             <h3 class="text-sm font-bold text-slate-800 uppercase mb-1">Xác thực VNeID Cấp độ 2</h3>
-            <p class="text-xs text-slate-500 mb-4">Sử dụng ứng dụng VNeID trên điện thoại để quét mã QR bên dưới</p>
-            
-            <div id="qrcode-container" class="bg-slate-50 p-4 border rounded-xl inline-block mb-4 shadow-inner">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=VNEID_AUTH_CA_PHUTRUNG_SESSION_2026" alt="QR VNeID" class="mx-auto rounded" id="dynamic-qr-img">
+            <p class="text-xs text-slate-500 mb-4">Sử dụng ứng dụng VNeID trên điện thoại để quét mã QR đăng nhập</p>
+            <div class="bg-slate-50 p-4 border rounded-lg inline-block mb-4">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=VNEID_AUTH_CA_LONGHA_SESSION_2026" alt="QR VNeID" class="mx-auto rounded">
             </div>
-            
             <div class="space-y-2 text-xs">
                 <p class="text-emerald-700 font-bold animate-pulse"><i class="fa-solid fa-spinner fa-spin mr-1"></i> Đang chờ quét mã xác thực...</p>
-                <button onclick="simulateQrSuccess()" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-2 rounded-lg transition shadow">Mô phỏng Quét thành công</button>
+                <button onclick="simulateQrSuccess()" class="w-full bg-[#0066B3] hover:bg-[#004A80] text-white font-bold py-2 rounded transition shadow">Mô phỏng Quét thành công</button>
             </div>
         </div>
     </div>
 
     <div id="security-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl max-w-lg w-full p-6 shadow-2xl border-t-4 border-red-600 relative">
+        <div class="bg-white rounded-lg max-w-lg w-full p-6 shadow-2xl border-t-4 border-[#0066B3] relative">
             <button onclick="toggleSecurityModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 font-bold">✕</button>
-            <h3 class="text-base font-bold text-slate-800 mb-2">QUY ĐỊNH BẢO VỆ BÍ MẬT NHÀ NƯỚC</h3>
-            <p class="text-xs text-slate-600 leading-relaxed mb-3">Sản phẩm tuân thủ nghiêm ngặt quy định bảo mật theo Thông tư 126/2025/TT-BCA của Bộ Công an. Mọi thao tác truy cập và thay đổi dữ liệu đều được lưu trữ trực tiếp vào bộ nhớ trình duyệt (localStorage), tự động khôi phục và lưu giữ khi upload lên mạng internet (GitHub Pages, Vercel, Netlify hoặc Hosting tĩnh).</p>
-            <button onclick="toggleSecurityModal()" class="w-full bg-slate-900 hover:bg-black text-white font-bold py-2 rounded-lg text-xs">Đã hiểu và Tuân thủ</button>
+            <h3 class="text-base font-bold text-[#0066B3] mb-2">QUY ĐỊNH BẢO VỆ BÍ MẬT NHÀ NƯỚC</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-3">Trang thông tin điện tử Công an xã Long Hà tuân thủ nghiêm ngặt quy định bảo mật theo Thông tư 126/2025/TT-BCA của Bộ Công an. Tuyệt đối không đăng tải tài liệu mật, thông tin nội bộ chưa được phép công khai lên môi trường Internet.</p>
+            <button onclick="toggleSecurityModal()" class="w-full bg-[#0066B3] hover:bg-[#004A80] text-white font-bold py-2 rounded text-xs">Đã hiểu và Tuân thủ</button>
         </div>
     </div>
 
+    <!-- Modal: Thêm/Sửa Nhiệm vụ -->
     <div id="task-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl border-t-4 border-yellow-500 relative">
+        <div class="bg-white rounded-lg max-w-md w-full p-6 shadow-2xl border-t-4 border-[#0066B3] relative">
             <button onclick="closeTaskModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 font-bold">✕</button>
-            <h3 class="text-base font-bold text-slate-800 mb-3" id="task-modal-title">NHIỆM VỤ TÁC CHIẾN (ADMIN)</h3>
+            <h3 class="text-base font-bold text-slate-800 mb-3">NHIỆM VỤ TÁC CHIẾN (ADMIN)</h3>
             <form onsubmit="saveTask(event)" class="space-y-3 text-xs">
                 <input type="hidden" id="task-edit-id">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Tên nhiệm vụ:</label>
-                    <input type="text" id="task-title" required placeholder="Nhập tên nhiệm vụ..." class="w-full border rounded-lg p-2 focus:outline-none focus:border-red-600">
+                    <input type="text" id="task-title" required class="w-full border rounded p-2">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">CBCS tiếp nhận:</label>
-                    <select id="task-officer" class="w-full border rounded-lg p-2 focus:outline-none focus:border-red-600 bg-white">
-                    </select>
+                    <select id="task-officer" class="w-full border rounded p-2 bg-white"></select>
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Thời hạn:</label>
-                    <input type="text" id="task-deadline" required placeholder="Hôm nay / Trong ngày" class="w-full border rounded-lg p-2 focus:outline-none focus:border-red-600">
+                    <input type="text" id="task-deadline" required class="w-full border rounded p-2">
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Mức độ:</label>
-                        <select id="task-priority" class="w-full border rounded-lg p-2 focus:outline-none focus:border-red-600 bg-white">
+                        <select id="task-priority" class="w-full border rounded p-2 bg-white">
                             <option value="Khẩn">Khẩn cấp</option>
                             <option value="Quan trọng">Quan trọng</option>
                             <option value="Bình thường">Bình thường</option>
@@ -805,83 +749,52 @@
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Trạng thái:</label>
-                        <select id="task-status" class="w-full border rounded-lg p-2 focus:outline-none focus:border-red-600 bg-white">
+                        <select id="task-status" class="w-full border rounded p-2 bg-white">
                             <option value="Đang thực hiện">Đang thực hiện</option>
                             <option value="Hoàn thành">Hoàn thành</option>
                             <option value="Chờ xử lý">Chờ xử lý</option>
                         </select>
                     </div>
                 </div>
-                <button type="submit" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded-lg transition shadow">Lưu vào CSDL Tự động</button>
+                <button type="submit" class="w-full bg-[#0066B3] hover:bg-[#004A80] text-white font-bold py-2 rounded">Lưu Nhiệm Vụ</button>
             </form>
         </div>
     </div>
 
+    <!-- Modal: Thêm/Sửa Cán bộ -->
     <div id="officer-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl border-t-4 border-blue-600 relative">
+        <div class="bg-white rounded-lg max-w-md w-full p-6 shadow-2xl border-t-4 border-[#0066B3] relative">
             <button onclick="closeOfficerModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 font-bold">✕</button>
-            <h3 class="text-base font-bold text-slate-800 mb-3" id="officer-modal-title">THÔNG TIN CÁN BỘ CHIẾN SĨ (ADMIN)</h3>
+            <h3 class="text-base font-bold text-slate-800 mb-3">THÔNG TIN CÁN BỘ CHIẾN SĨ (ADMIN)</h3>
             <form onsubmit="saveOfficer(event)" class="space-y-3 text-xs">
                 <input type="hidden" id="officer-edit-id">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Họ tên & Cấp bậc:</label>
-                    <input type="text" id="officer-name" required placeholder="Ví dụ: Đại úy Nguyễn Văn A" class="w-full border rounded-lg p-2">
+                    <input type="text" id="officer-name" required class="w-full border rounded p-2">
                 </div>
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Chức vụ / Nhiệm vụ:</label>
-                    <input type="text" id="officer-role" required placeholder="Ví dụ: Cán bộ CSQLHC" class="w-full border rounded-lg p-2">
+                    <input type="text" id="officer-role" required class="w-full border rounded p-2">
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Trạng thái làm việc:</label>
-                    <input type="text" id="officer-status" required placeholder="Ví dụ: Trực ban" class="w-full border rounded-lg p-2">
+                    <label class="block font-bold text-slate-700 mb-1">Số điện thoại / Trạng thái:</label>
+                    <input type="text" id="officer-status" required class="w-full border rounded p-2">
                 </div>
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg transition shadow">Lưu thông tin Cán bộ</button>
+                <button type="submit" class="w-full bg-[#0066B3] hover:bg-[#004A80] text-white font-bold py-2 rounded">Lưu Thông Tin</button>
             </form>
         </div>
     </div>
 
-    <!-- MODAL TẠO GHI CHÚ TÁC CHIẾN MỤC SỐ 3 -->
-    <div id="officer-log-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl max-w-md w-full p-6 shadow-2xl border-t-4 border-red-600 relative">
-            <button onclick="closeOfficerLogModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 font-bold">✕</button>
-            <h3 class="text-base font-bold text-slate-800 mb-3">GHI CHÚ NGHIỆP VỤ & TÁC CHIẾN</h3>
-            <form onsubmit="saveOfficerLog(event)" class="space-y-3 text-xs">
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Cán bộ thực hiện chép sổ:</label>
-                    <select id="log-officer-select" class="w-full border rounded-lg p-2 bg-white">
-                    </select>
-                </div>
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Loại hoạt động / Nghiệp vụ:</label>
-                    <select id="log-type" class="w-full border rounded-lg p-2 bg-white">
-                        <option value="Tuần tra ANTT">Tuần tra an ninh trật tự</option>
-                        <option value="Tiếp dân & DVC">Tiếp nhận dân & Xử lý DVC</option>
-                        <option value="Kiểm tra PCCC">Kiểm tra cơ sở PCCC</option>
-                        <option value="Giải quyết sự việc">Giải quyết sự việc ANTT</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Địa bàn / Khu vực:</label>
-                    <input type="text" id="log-location" required placeholder="Ví dụ: Thôn Phú An / Trụ sở CAX" class="w-full border rounded-lg p-2">
-                </div>
-                <div>
-                    <label class="block font-bold text-slate-700 mb-1">Nội dung diễn biến tác chiến:</label>
-                    <textarea id="log-content" rows="3" required placeholder="Ghi nhận nội dung tình hình..." class="w-full border rounded-lg p-2"></textarea>
-                </div>
-                <button type="submit" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-2 rounded-lg transition shadow">Lưu Nhật Ký Tác Chiếu</button>
-            </form>
-        </div>
-    </div>
-
+    <!-- Modal: Hồ sơ Dịch vụ công -->
     <div id="dvc-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl max-w-lg w-full p-6 shadow-2xl border-t-4 border-red-600 relative">
+        <div class="bg-white rounded-lg max-w-lg w-full p-6 shadow-2xl border-t-4 border-[#0066B3] relative">
             <button onclick="closeDvcModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 font-bold">✕</button>
-            <h3 class="text-base font-bold text-slate-800 mb-3" id="dvc-modal-title">HỒ SƠ DỊCH VỤ CÔNG</h3>
+            <h3 class="text-base font-bold text-slate-800 mb-3">HỒ SƠ DỊCH VỤ CÔNG</h3>
             <form onsubmit="saveDvc(event)" class="space-y-3 text-xs">
                 <input type="hidden" id="dvc-edit-id">
                 <div>
                     <label class="block font-bold text-slate-700 mb-1">Thủ tục:</label>
-                    <select id="dvc-procedure" class="w-full border rounded-lg p-2 bg-white">
+                    <select id="dvc-procedure" class="w-full border rounded p-2 bg-white">
                         <option value="Đăng ký Tạm trú">Đăng ký Tạm trú</option>
                         <option value="Cấp Căn cước công dân / Định danh VNeID">Cấp Căn cước / VNeID</option>
                         <option value="Xác nhận số định danh & Cư trú">Xác nhận cư trú CT07</option>
@@ -891,159 +804,185 @@
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Họ tên người nộp:</label>
-                        <input type="text" id="dvc-citizen" required placeholder="Nguyễn Văn X" class="w-full border rounded-lg p-2">
+                        <input type="text" id="dvc-citizen" required class="w-full border rounded p-2">
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Số điện thoại:</label>
-                        <input type="tel" id="dvc-phone" required placeholder="09xxxxxxxx" class="w-full border rounded-lg p-2">
+                        <input type="tel" id="dvc-phone" required class="w-full border rounded p-2">
                     </div>
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Cán bộ phụ trách:</label>
-                        <select id="dvc-officer" class="w-full border rounded-lg p-2 bg-white">
-                        </select>
+                        <select id="dvc-officer" class="w-full border rounded p-2 bg-white"></select>
                     </div>
                     <div>
                         <label class="block font-bold text-slate-700 mb-1">Trạng thái:</label>
-                        <select id="dvc-status" class="w-full border rounded-lg p-2 bg-white">
+                        <select id="dvc-status" class="w-full border rounded p-2 bg-white">
                             <option value="Đang xử lý">Đang xử lý</option>
                             <option value="Đã hoàn thành">Đã hoàn thành</option>
                         </select>
                     </div>
                 </div>
                 <div>
-                    <label class="block font-bold text-slate-700 mb-1">Ghi chú / Kết quả:</label>
-                    <input type="text" id="dvc-note" placeholder="Nhập ghi chú xử lý..." class="w-full border rounded-lg p-2">
+                    <label class="block font-bold text-slate-700 mb-1">Ghi chú:</label>
+                    <input type="text" id="dvc-note" class="w-full border rounded p-2">
                 </div>
-                <button type="submit" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-2 rounded-lg transition shadow">Lưu Hồ Sơ</button>
+                <button type="submit" class="w-full bg-[#0066B3] hover:bg-[#004A80] text-white font-bold py-2 rounded">Lưu Hồ Sơ</button>
             </form>
         </div>
     </div>
 
+    <!-- Modal: Nhập mật khẩu ADMIN (Mặc định: 888888) -->
     <div id="admin-pass-modal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-xl max-w-sm w-full p-6 shadow-2xl border-t-4 border-yellow-500 text-center relative">
+        <div class="bg-white rounded-lg max-w-sm w-full p-6 shadow-2xl border-t-4 border-[#0066B3] text-center relative">
             <button onclick="cancelAdminAuth()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 font-bold">✕</button>
-            <div class="w-12 h-12 bg-yellow-100 text-yellow-700 rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
+            <div class="w-12 h-12 bg-blue-100 text-[#0066B3] rounded-full flex items-center justify-center mx-auto mb-3 text-xl">
                 <i class="fa-solid fa-key"></i>
             </div>
-            <h3 class="text-sm font-bold text-slate-800 uppercase mb-1">Xác thực Quyền Chỉ huy (ADMIN)</h3>
+            <h3 class="text-sm font-bold text-slate-800 uppercase mb-1">Xác thực Quyền Quản Trị (ADMIN)</h3>
             <p class="text-xs text-slate-500 mb-4">Nhập mã PIN bảo mật để kích hoạt quyền Thêm/Sửa/Xóa dữ liệu</p>
-            
             <form onsubmit="submitAdminAuth(event)" class="space-y-3">
-                <input type="password" id="admin-pin-input" placeholder="LH 0335.333.033" maxlength="10" required class="w-full text-center tracking-widest text-lg font-bold border border-slate-300 rounded-lg p-2.5 focus:outline-none focus:border-red-600">
-                <p id="auth-error-msg" class="text-xs text-red-600 font-bold hidden"><i class="fa-solid fa-triangle-exclamation"></i> Mật khẩu không chính xác!</p>
+                <input type="password" id="admin-pin-input" placeholder="Nhập mã PIN (888888)" maxlength="10" required class="w-full text-center tracking-widest text-lg font-bold border border-slate-300 rounded p-2.5 focus:outline-none focus:border-[#0066B3]">
+                <p id="auth-error-msg" class="text-xs text-red-600 font-bold hidden">Mật khẩu không chính xác!</p>
                 <div class="flex gap-2 pt-2">
-                    <button type="button" onclick="cancelAdminAuth()" class="w-1/2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 rounded-lg text-xs transition">Hủy bỏ</button>
-                    <button type="submit" class="w-1/2 bg-red-700 hover:bg-red-800 text-white font-bold py-2 rounded-lg text-xs transition shadow">Xác nhận</button>
+                    <button type="button" onclick="cancelAdminAuth()" class="w-1/2 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 rounded text-xs">Hủy bỏ</button>
+                    <button type="submit" class="w-1/2 bg-[#0066B3] hover:bg-[#004A80] text-white font-bold py-2 rounded text-xs">Xác nhận</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <!-- Hộp thoại thông báo thay thế alert() -->
+    <div id="toast-box" class="fixed bottom-4 right-4 bg-slate-900 text-white text-xs font-bold px-4 py-3 rounded shadow-xl border-l-4 border-yellow-400 hidden z-50 transition-opacity"></div>
+
+    <!-- JAVASCRIPT LOGIC -->
     <script>
         let currentRole = 'citizen';
-        let previousRole = 'citizen';
         const ADMIN_PIN = "888888";
         let currentDvcFilter = 'all';
         let reportFilterLoc = 'all';
 
         const STORAGE_KEYS = {
-            OFFICERS: 'ca_phutrung_officers_v4',
-            TASKS: 'ca_phutrung_tasks_v4',
-            DVC: 'ca_phutrung_dvc_v4',
-            REPORTS: 'ca_phutrung_reports_v4',
-            STATS: 'ca_phutrung_stats_v4',
-            OFFICER_NAME: 'ca_phutrung_officer_name_v4',
-            USER_ROLE: 'ca_phutrung_user_role_v4',
-            OFFICER_LOGS: 'ca_phutrung_officer_logs_v4'
+            OFFICERS: 'ca_longha_officers_v1',
+            DVC: 'ca_longha_dvc_v1',
+            REPORTS: 'ca_longha_reports_v1',
+            STATS: 'ca_longha_stats_v1',
+            OFFICER_NAME: 'ca_longha_officer_name_v1',
+            USER_ROLE: 'ca_longha_user_role_v1'
         };
 
-        const DEFAULT_STATS = { population: '14,238', households: '3,299 / 01', incidents: '1', digitization: '98.5%' };
+        const DEFAULT_STATS = { population: '18,650', households: '4,120 / 48', incidents: '2', digitization: '99.1%' };
         const DEFAULT_OFFICERS = [
-            { id: 1, name: 'Trung tá Trần Văn Duẩn', role: 'Trưởng Công an xã', status: 'ĐT:0913965100' },
-            { id: 2, name: 'Trung tá Phạm Xuân Kiên', role: 'Phó Trưởng Công an xã TH', status: 'ĐT:0976938909' },
-            { id: 3, name: 'Trung tá Vũ Quang Huy', role: 'Phó Trưởng Công an xã AN', status: 'ĐT:0985305537' },
-            { id: 4, name: 'Trung tá Nguyễn Hải Phương', role: 'Phó Trưởng Công an xã CSKV', status: 'ĐT:0918878679' },
-            { id: 5, name: 'Thiếu tá Đoàn Văn Thực', role: 'Phó Trưởng Công an xã PCTP', status: 'ĐT: 0979369510' },
-            { id: 6, name: 'Thiếu tá Nguyễn Đăng Thành', role: 'Phó Trưởng Công an xã CSTT', status: 'ĐT: 0982125135' },
-        ];
-        const DEFAULT_TASKS = [
-            { id: 101, title: 'Kiểm tra an toàn PCCC hộ kinh doanh Thôn Phú An', officer: 'Thiếu tá Nguyễn Đăng Thành', deadline: '15/10/2026', priority: 'Khẩn', status: 'Đang thực hiện' },
-            { id: 102, title: 'Số hóa 150 hồ sơ CT07 đăng ký cư trú', officer: 'Trung tá Nguyễn Hải Phương', deadline: '18/10/2026', priority: 'Quan trọng', status: 'Đang thực hiện' }
+            { id: 1, name: 'Trung tá Nguyễn Minh Tuấn', role: 'Trưởng Công an xã Long Hà', status: 'ĐT: 0913.842.119' },
+            { id: 2, name: 'Thiếu tá Lê Hoàng Nam', role: 'Phó Trưởng Công an xã', status: 'ĐT: 0976.512.308' },
+            { id: 3, name: 'Đại úy Trần Quốc Bảo', role: 'Cán bộ CSKV Thôn Long Hà 1', status: 'ĐT: 0985.301.442' },
+            { id: 4, name: 'Thượng úy Phạm Văn Hùng', role: 'Cán bộ CSQLHC & DVC', status: 'ĐT: 0918.774.290' }
         ];
         const DEFAULT_DVC = [
-            { id: 'DVC-2026-001', procedure: 'Đăng ký Tạm trú', citizen: 'Trần Văn Hoàng', phone: '0981234567', date: '12/10/2026', deadline: '15/10/2026', officer: 'Thiếu tá Nguyễn Đăng Thành', status: 'Đang xử lý', note: 'Đã nhận đủ hồ sơ CT01' },
-            { id: 'DVC-2026-002', procedure: 'Xác nhận số định danh & Cư trú', citizen: 'Phạm Thị Mai', phone: '0912345678', date: '11/10/2026', deadline: '13/10/2026', officer: 'Trung tá Nguyễn Hải Phương', status: 'Đã hoàn thành', note: 'Đã cấp giấy xác nhận CT07' }
+            { id: 'DVC-LH-001', procedure: 'Đăng ký Tạm trú', citizen: 'Nguyễn Văn Bình', phone: '0981234567', date: '18/11/2026', deadline: '21/11/2026', officer: 'Thượng úy Phạm Văn Hùng', status: 'Đang xử lý', note: 'Đã tiếp nhận hồ sơ trực tuyến' },
+            { id: 'DVC-LH-002', procedure: 'Xác nhận số định danh & Cư trú', citizen: 'Lê Thị Thu Hà', phone: '0912345678', date: '17/11/2026', deadline: '19/11/2026', officer: 'Đại úy Trần Quốc Bảo', status: 'Đã hoàn thành', note: 'Đã trả kết quả CT07' }
         ];
         const DEFAULT_REPORTS = [
-            { id: 'PA-101', cat: 'Trật tự xã hội', name: 'Lê Văn T.', location: 'THÔN PHÚ AN', content: 'Có nhóm thanh niên tụ tập tiếng ồn sau 23h', time: '10 phút trước', status: 'Đã tiếp nhận' }
-        ];
-        const DEFAULT_OFFICER_LOGS = [
-            { id: 'LOG-01', officer: 'Thiếu tá Nguyễn Đăng Thành', type: 'Tuần tra ANTT', location: 'Thôn Phú An', content: 'Hoàn thành lượt tuần tra ban đêm từ 22h-01h. Địa bàn ổn định không phát sinh phức tạp.', time: '01:15 AM - Hôm nay' },
-            { id: 'LOG-02', officer: 'Trung tá Nguyễn Hải Phương', type: 'Tiếp dân & DVC', location: 'Trụ sở CAX', content: 'Tiếp nhận 05 hồ sơ cấp lại CT07 xác nhận cư trú cho người dân lao động.', time: '09:30 AM - Hôm nay' }
+            { id: 'PA-LH-01', cat: 'Trật tự xã hội', name: 'Trần Văn M.', location: 'THÔN LONG HÀ 2', content: 'Đề nghị tăng cường tuần tra tuyến đường liên thôn buổi tối.', time: '15 phút trước', status: 'Đã tiếp nhận' }
         ];
 
         let statsData = loadStorageData(STORAGE_KEYS.STATS, DEFAULT_STATS);
         let officersData = loadStorageData(STORAGE_KEYS.OFFICERS, DEFAULT_OFFICERS);
-        let tasksData = loadStorageData(STORAGE_KEYS.TASKS, DEFAULT_TASKS);
         let dvcData = loadStorageData(STORAGE_KEYS.DVC, DEFAULT_DVC);
         let publicReports = loadStorageData(STORAGE_KEYS.REPORTS, DEFAULT_REPORTS);
-        let officerLogs = loadStorageData(STORAGE_KEYS.OFFICER_LOGS, DEFAULT_OFFICER_LOGS);
+
+        function showToast(msg) {
+            const box = document.getElementById('toast-box');
+            box.innerText = msg;
+            box.classList.remove('hidden');
+            setTimeout(() => box.classList.add('hidden'), 3500);
+        }
 
         function loadStorageData(key, fallback) {
             try {
                 const data = localStorage.getItem(key);
                 return data ? JSON.parse(data) : fallback;
-            } catch (e) {
-                return fallback;
-            }
+            } catch (e) { return fallback; }
         }
 
         function saveStorageData(key, data) {
-            try {
-                localStorage.setItem(key, JSON.stringify(data));
-            } catch (e) {
-                console.error("Storage error:", e);
-            }
+            try { localStorage.setItem(key, JSON.stringify(data)); } catch (e) {}
         }
 
         function startLiveClock() {
             const clockEl = document.getElementById('current-time-clock');
             if (!clockEl) return;
+            const days = ['Chủ nhật', 'Thứ hai', 'Thứ ba', 'Thứ tư', 'Thứ năm', 'Thứ sáu', 'Thứ bảy'];
             const update = () => {
                 const now = new Date();
-                clockEl.innerText = now.toLocaleTimeString('vi-VN') + ' - ' + now.toLocaleDateString('vi-VN');
+                const dayName = days[now.getDay()];
+                const dateStr = now.toLocaleDateString('vi-VN');
+                const timeStr = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+                clockEl.innerText = `${dayName}, ${dateStr}, ${timeStr}`;
             };
             update();
             setInterval(update, 1000);
         }
 
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active-tab');
-                btn.classList.add('text-slate-300');
-            });
+        function changeThemeAccent(color) {
+            const nav = document.querySelector('.portal-nav-bg');
+            const footer = document.querySelector('footer');
+            if (color === 'red') {
+                nav.style.background = 'linear-gradient(180deg, #B91C1C 0%, #7F1D1D 100%)';
+                footer.style.backgroundColor = '#7F1D1D';
+            } else if (color === 'emerald') {
+                nav.style.background = 'linear-gradient(180deg, #047857 0%, #064E3B 100%)';
+                footer.style.backgroundColor = '#064E3B';
+            } else {
+                nav.style.background = 'linear-gradient(180deg, #0077C8 0%, #005A9E 100%)';
+                footer.style.backgroundColor = '#004A80';
+            }
+            showToast('Đã thay đổi giao diện màu sắc Cổng thông tin!');
+        }
 
-            const activeSection = document.getElementById(tabId);
-            const activeBtn = document.getElementById('tab-' + tabId);
+        function switchNewsTab(tab) {
+            const btnMoi = document.getElementById('btn-tin-moi');
+            const btnXemNhieu = document.getElementById('btn-tin-xem-nhieu');
+            const listMoi = document.getElementById('news-list-tin-moi');
+            const listXemNhieu = document.getElementById('news-list-tin-xem-nhieu');
 
-            if (activeSection) activeSection.classList.remove('hidden');
-            if (activeBtn) {
-                activeBtn.classList.add('active-tab');
-                activeBtn.classList.remove('text-slate-300');
+            if (tab === 'tin-moi') {
+                btnMoi.className = 'px-4 py-2.5 bg-[#0066B3] text-white transition';
+                btnXemNhieu.className = 'px-4 py-2.5 text-slate-700 hover:bg-slate-200 transition';
+                listMoi.classList.remove('hidden');
+                listXemNhieu.classList.add('hidden');
+            } else {
+                btnXemNhieu.className = 'px-4 py-2.5 bg-[#0066B3] text-white transition';
+                btnMoi.className = 'px-4 py-2.5 text-slate-700 hover:bg-slate-200 transition';
+                listXemNhieu.classList.remove('hidden');
+                listMoi.classList.add('hidden');
             }
         }
 
-        function toggleQrModal() {
-            document.getElementById('vneid-qr-modal').classList.toggle('hidden');
+        function handleQuickPortalSearch() {
+            const kw = document.getElementById('portal-quick-search').value.trim();
+            if (!kw) return;
+            switchTab('tro-ly-ai');
+            askQuickQuestion(kw);
         }
 
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active-tab'));
+
+            const activeSection = document.getElementById(tabId);
+            const activeBtn = document.getElementById('tab-' + tabId);
+            if (activeSection) activeSection.classList.remove('hidden');
+            if (activeBtn) activeBtn.classList.add('active-tab');
+        }
+
+        function toggleQrModal() { document.getElementById('vneid-qr-modal').classList.toggle('hidden'); }
         function simulateQrSuccess() {
             toggleQrModal();
             switchUserRole('officer');
-            document.getElementById('current-officer-name').innerText = 'Đại úy Nguyễn Văn AI (VNeID)';
+            document.getElementById('current-officer-name').innerText = 'Cán bộ CAX Long Hà (VNeID)';
+            showToast('Xác thực VNeID Cấp độ 2 thành công!');
         }
 
         function handleRoleSwitchRequest(targetRole) {
@@ -1051,19 +990,17 @@
                 document.getElementById('admin-pin-input').value = '';
                 document.getElementById('auth-error-msg').classList.add('hidden');
                 document.getElementById('admin-pass-modal').classList.remove('hidden');
-                setTimeout(() => document.getElementById('admin-pin-input').focus(), 100);
             } else {
-                previousRole = currentRole;
                 switchUserRole(targetRole);
             }
         }
 
         function submitAdminAuth(e) {
             if (e) e.preventDefault();
-            const inputPin = document.getElementById('admin-pin-input').value.trim();
-            if (inputPin === ADMIN_PIN) {
+            if (document.getElementById('admin-pin-input').value.trim() === ADMIN_PIN) {
                 document.getElementById('admin-pass-modal').classList.add('hidden');
                 switchUserRole('admin');
+                showToast('Đã kích hoạt quyền Quản trị viên (ADMIN)!');
             } else {
                 document.getElementById('auth-error-msg').classList.remove('hidden');
             }
@@ -1077,356 +1014,46 @@
         function switchUserRole(role) {
             currentRole = role;
             localStorage.setItem(STORAGE_KEYS.USER_ROLE, role);
-
             const badge = document.getElementById('role-badge');
             const roleSelect = document.getElementById('user-role-select');
             if (roleSelect) roleSelect.value = role;
 
             if (role === 'admin') {
-                badge.innerText = "CHỈ HUY (ADMIN)";
-                badge.className = "bg-yellow-400 text-red-950 text-[10px] font-black px-2 py-0.5 rounded uppercase shadow";
+                badge.innerText = "QUẢN TRỊ (ADMIN)";
+                badge.className = "bg-yellow-400 text-red-950 text-[10px] font-black px-2 py-0.5 rounded uppercase";
             } else if (role === 'officer') {
-                badge.innerText = "CÁN BỘ VẬN HÀNH";
-                badge.className = "bg-blue-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase shadow";
+                badge.innerText = "CÁN BỘ CAX";
+                badge.className = "bg-[#0066B3] text-white text-[10px] font-black px-2 py-0.5 rounded uppercase";
             } else {
                 badge.innerText = "CÔNG DÂN";
-                badge.className = "bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase shadow";
+                badge.className = "bg-emerald-600 text-white text-[10px] font-black px-2 py-0.5 rounded uppercase";
             }
 
-            updateRoleUI();
-            renderOfficers();
-            renderTasks();
+            document.querySelectorAll('.admin-only').forEach(el => el.classList.toggle('hidden', currentRole !== 'admin'));
+            document.querySelectorAll('.role-officer-or-admin').forEach(el => el.classList.toggle('hidden', !(currentRole === 'admin' || currentRole === 'officer')));
+
             renderDvcList();
             renderReports();
-            renderOfficerSection();
-        }
-
-        function updateRoleUI() {
-            document.querySelectorAll('.admin-only').forEach(el => {
-                if (currentRole === 'admin') el.classList.remove('hidden');
-                else el.classList.add('hidden');
-            });
-
-            document.querySelectorAll('.role-officer-or-admin').forEach(el => {
-                if (currentRole === 'admin' || currentRole === 'officer') el.classList.remove('hidden');
-                else el.classList.add('hidden');
-            });
         }
 
         function renderStats() {
-            if (document.getElementById('stat-population')) document.getElementById('stat-population').innerText = statsData.population;
-            if (document.getElementById('stat-households')) document.getElementById('stat-households').innerText = statsData.households;
-            if (document.getElementById('stat-incidents')) document.getElementById('stat-incidents').innerText = statsData.incidents;
-            if (document.getElementById('stat-digitization')) document.getElementById('stat-digitization').innerText = statsData.digitization;
-        }
-
-        function editStatCard(id, label) {
-            if (currentRole !== 'admin') return;
-            const keyMap = {
-                'stat-population': 'population',
-                'stat-households': 'households',
-                'stat-incidents': 'incidents',
-                'stat-digitization': 'digitization'
-            };
-            const key = keyMap[id];
-            const newVal = prompt(`[CHỈ HUY ADMIN - TỰ ĐỘNG LƯU] Cập nhật ${label}:`, statsData[key]);
-            if (newVal !== null && newVal.trim() !== '') {
-                statsData[key] = newVal.trim();
-                saveStorageData(STORAGE_KEYS.STATS, statsData);
-                renderStats();
-            }
-        }
-
-        function renderOfficers() {
-            const container = document.getElementById('officer-list-container');
-            const badge = document.getElementById('officer-count-badge');
-            if (!container) return;
-            container.innerHTML = '';
-            if (badge) badge.innerText = officersData.length + ' cán bộ';
-
-            officersData.forEach(o => {
-                const card = document.createElement('div');
-                card.className = "p-3 bg-slate-50 border border-slate-200 rounded-lg flex justify-between items-center text-xs hover:border-slate-300 transition";
-                card.innerHTML = `
-                    <div>
-                        <strong class="text-slate-800">${o.name}</strong>
-                        <p class="text-slate-500 text-[11px]">${o.role}</p>
-                        <span class="text-[10px] bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-bold mt-1 inline-block">${o.status}</span>
-                    </div>
-                    <div class="space-x-1 ${currentRole === 'admin' ? '' : 'hidden'}">
-                        <button type="button" onclick="openOfficerModal(${o.id})" class="text-blue-600 hover:text-blue-800 p-1" title="Sửa"><i class="fa-solid fa-pen"></i></button>
-                        <button type="button" onclick="deleteOfficer(${o.id})" class="text-red-600 hover:text-red-800 p-1" title="Xóa"><i class="fa-solid fa-trash"></i></button>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        /* CHỨC NĂNG BỔ SUNG DÀNH CHO MỤC SỐ 3: CÁN BỘ SỐ */
-        function renderOfficerSection() {
-            // Render danh bạ & Lịch trực cán bộ
-            const dirContainer = document.getElementById('officer-duty-directory');
-            if (dirContainer) {
-                dirContainer.innerHTML = '';
-                officersData.forEach(o => {
-                    const item = document.createElement('div');
-                    item.className = "p-3 bg-slate-50 border border-slate-200 rounded-xl flex items-center justify-between text-xs";
-                    item.innerHTML = `
-                        <div class="flex items-center space-x-3">
-                            <div class="w-9 h-9 rounded-full bg-red-100 text-red-700 flex items-center justify-center font-bold text-sm">
-                                <i class="fa-solid fa-user-shield"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-800">${o.name}</h4>
-                                <p class="text-[11px] text-slate-500">${o.role}</p>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full block mb-1">Đang ca trực</span>
-                            <span class="text-[11px] font-mono font-bold text-blue-700"><i class="fa-solid fa-phone text-[9px] mr-1"></i>${o.status.replace('ĐT:', '')}</span>
-                        </div>
-                    `;
-                    dirContainer.appendChild(item);
-                });
-            }
-
-            // Render Nhật ký tác chiến
-            const logsContainer = document.getElementById('officer-logs-container');
-            if (logsContainer) {
-                logsContainer.innerHTML = '';
-                if (officerLogs.length === 0) {
-                    logsContainer.innerHTML = `<p class="text-xs text-slate-400 text-center py-4">Chưa có nhật ký tác chiến nào được ghi nhận.</p>`;
-                } else {
-                    officerLogs.forEach(log => {
-                        const card = document.createElement('div');
-                        card.className = "p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5 text-xs relative";
-                        card.innerHTML = `
-                            <div class="flex justify-between items-start">
-                                <div class="flex items-center space-x-2">
-                                    <span class="bg-red-700 text-white text-[10px] font-bold px-2 py-0.5 rounded">${log.type}</span>
-                                    <span class="font-bold text-slate-800">${log.officer}</span>
-                                </div>
-                                <span class="text-[10px] text-slate-400">${log.time}</span>
-                            </div>
-                            <p class="text-slate-700 font-medium">${log.content}</p>
-                            <div class="flex justify-between items-center text-[11px] pt-1 border-t border-slate-200 text-slate-500">
-                                <span><i class="fa-solid fa-location-dot text-red-600 mr-1"></i>Địa bàn: <strong>${log.location}</strong></span>
-                                ${currentRole === 'admin' || currentRole === 'officer' ? `<button onclick="deleteOfficerLog('${log.id}')" class="text-red-600 hover:underline text-[10px]"><i class="fa-solid fa-trash mr-0.5"></i>Xóa log</button>` : ''}
-                            </div>
-                        `;
-                        logsContainer.appendChild(card);
-                    });
-                }
-            }
-        }
-
-        function checkInOfficerVneid() {
-            const nowTime = new Date().toLocaleTimeString('vi-VN');
-            document.getElementById('officer-checkin-status').innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600 mr-1"></i> Đã điểm danh VNeID lúc ${nowTime}`;
-            alert("Điểm danh VNeID ca trực tác chiến thành công!");
-        }
-
-        function openOfficerLogModal() {
-            const selectEl = document.getElementById('log-officer-select');
-            if (selectEl) {
-                selectEl.innerHTML = '';
-                officersData.forEach(o => {
-                    const opt = document.createElement('option');
-                    opt.value = o.name;
-                    opt.innerText = o.name + ' (' + o.role + ')';
-                    selectEl.appendChild(opt);
-                });
-            }
-            document.getElementById('officer-log-modal').classList.remove('hidden');
-        }
-
-        function closeOfficerLogModal() {
-            document.getElementById('officer-log-modal').classList.add('hidden');
-        }
-
-        function saveOfficerLog(e) {
-            if (e) e.preventDefault();
-            const officer = document.getElementById('log-officer-select').value;
-            const type = document.getElementById('log-type').value;
-            const location = document.getElementById('log-location').value.trim();
-            const content = document.getElementById('log-content').value.trim();
-            const nowStr = new Date().toLocaleTimeString('vi-VN', {hour: '2-digit', minute:'2-digit'}) + ' - Hôm nay';
-
-            const newLog = {
-                id: 'LOG-' + Date.now(),
-                officer, type, location, content, time: nowStr
-            };
-
-            officerLogs.unshift(newLog);
-            saveStorageData(STORAGE_KEYS.OFFICER_LOGS, officerLogs);
-            renderOfficerSection();
-            closeOfficerLogModal();
-            document.getElementById('log-content').value = '';
-            document.getElementById('log-location').value = '';
-        }
-
-        function deleteOfficerLog(id) {
-            if (!confirm("Đồng chí có chắc chắn muốn xóa nhật ký tác chiến này?")) return;
-            officerLogs = officerLogs.filter(x => x.id !== id);
-            saveStorageData(STORAGE_KEYS.OFFICER_LOGS, officerLogs);
-            renderOfficerSection();
-        }
-
-        function openOfficerModal(id = null) {
-            document.getElementById('officer-edit-id').value = id || '';
-            if (id) {
-                const o = officersData.find(x => x.id === id);
-                if (o) {
-                    document.getElementById('officer-name').value = o.name;
-                    document.getElementById('officer-role').value = o.role;
-                    document.getElementById('officer-status').value = o.status;
-                }
-            } else {
-                document.getElementById('officer-name').value = '';
-                document.getElementById('officer-role').value = '';
-                document.getElementById('officer-status').value = 'Sẵn sàng';
-            }
-            document.getElementById('officer-modal').classList.remove('hidden');
-        }
-
-        function closeOfficerModal() {
-            document.getElementById('officer-modal').classList.add('hidden');
-        }
-
-        function saveOfficer(e) {
-            if (e) e.preventDefault();
-            const editId = document.getElementById('officer-edit-id').value;
-            const name = document.getElementById('officer-name').value.trim();
-            const role = document.getElementById('officer-role').value.trim();
-            const status = document.getElementById('officer-status').value.trim();
-
-            if (editId) {
-                const idx = officersData.findIndex(x => x.id == editId);
-                if (idx !== -1) officersData[idx] = { id: Number(editId), name, role, status };
-            } else {
-                officersData.push({ id: Date.now(), name, role, status });
-            }
-            saveStorageData(STORAGE_KEYS.OFFICERS, officersData);
-            renderOfficers();
-            renderOfficerSection();
-            closeOfficerModal();
-        }
-
-        function deleteOfficer(id) {
-            if (!confirm("Đồng chí ADMIN có chắc muốn xóa cán bộ này? Thay đổi sẽ tự động lưu.")) return;
-            officersData = officersData.filter(x => x.id !== id);
-            saveStorageData(STORAGE_KEYS.OFFICERS, officersData);
-            renderOfficers();
-            renderOfficerSection();
-        }
-
-        function renderTasks() {
-            const tbody = document.getElementById('task-list-body');
-            if (!tbody) return;
-            tbody.innerHTML = '';
-
-            tasksData.forEach(t => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50 border-b";
-                tr.innerHTML = `
-                    <td class="p-2.5 font-bold text-slate-800">${t.title}</td>
-                    <td class="p-2.5">${t.officer}</td>
-                    <td class="p-2.5">${t.deadline}</td>
-                    <td class="p-2.5"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${t.priority === 'Khẩn' ? 'bg-red-100 text-red-800' : 'bg-blue-100 text-blue-800'}">${t.priority}</span></td>
-                    <td class="p-2.5"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-yellow-100 text-yellow-800">${t.status}</span></td>
-                    <td class="p-2.5 text-center ${currentRole === 'admin' ? '' : 'hidden'}">
-                        <button type="button" onclick="openTaskModal(${t.id})" class="text-blue-600 hover:text-blue-800 p-1"><i class="fa-solid fa-pen"></i></button>
-                        <button type="button" onclick="deleteTask(${t.id})" class="text-red-600 hover:text-red-800 p-1"><i class="fa-solid fa-trash"></i></button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function openTaskModal(id = null) {
-            document.getElementById('task-edit-id').value = id || '';
-            const selectEl = document.getElementById('task-officer');
-            selectEl.innerHTML = '';
-            officersData.forEach(o => {
-                const opt = document.createElement('option');
-                opt.value = o.name;
-                opt.innerText = o.name + ' (' + o.role + ')';
-                selectEl.appendChild(opt);
-            });
-
-            if (id) {
-                const t = tasksData.find(x => x.id === id);
-                if (t) {
-                    document.getElementById('task-title').value = t.title;
-                    document.getElementById('task-officer').value = t.officer;
-                    document.getElementById('task-deadline').value = t.deadline;
-                    document.getElementById('task-priority').value = t.priority;
-                    document.getElementById('task-status').value = t.status;
-                }
-            } else {
-                document.getElementById('task-title').value = '';
-                document.getElementById('task-deadline').value = 'Trong ngày';
-            }
-            document.getElementById('task-modal').classList.remove('hidden');
-        }
-
-        function closeTaskModal() {
-            document.getElementById('task-modal').classList.add('hidden');
-        }
-
-        function saveTask(e) {
-            if (e) e.preventDefault();
-            const editId = document.getElementById('task-edit-id').value;
-            const title = document.getElementById('task-title').value.trim();
-            const officer = document.getElementById('task-officer').value;
-            const deadline = document.getElementById('task-deadline').value.trim();
-            const priority = document.getElementById('task-priority').value;
-            const status = document.getElementById('task-status').value;
-
-            if (editId) {
-                const idx = tasksData.findIndex(x => x.id == editId);
-                if (idx !== -1) tasksData[idx] = { id: Number(editId), title, officer, deadline, priority, status };
-            } else {
-                tasksData.push({ id: Date.now(), title, officer, deadline, priority, status });
-            }
-            saveStorageData(STORAGE_KEYS.TASKS, tasksData);
-            renderTasks();
-            closeTaskModal();
-        }
-
-        function deleteTask(id) {
-            if (!confirm("Xóa nhiệm vụ này?")) return;
-            tasksData = tasksData.filter(x => x.id !== id);
-            saveStorageData(STORAGE_KEYS.TASKS, tasksData);
-            renderTasks();
+            if (document.getElementById('home-stat-pop')) document.getElementById('home-stat-pop').innerText = statsData.population;
+            if (document.getElementById('home-stat-house')) document.getElementById('home-stat-house').innerText = statsData.households;
         }
 
         function renderDvcList() {
             const tbody = document.getElementById('dvc-list-body');
             if (!tbody) return;
             tbody.innerHTML = '';
-
-            let filtered = dvcData;
-            if (currentDvcFilter !== 'all') {
-                filtered = dvcData.filter(x => x.status === currentDvcFilter);
-            }
-
-            const searchKey = document.getElementById('dvc-search-input') ? document.getElementById('dvc-search-input').value.toLowerCase() : '';
-            if (searchKey) {
-                filtered = filtered.filter(x => x.id.toLowerCase().includes(searchKey) || x.citizen.toLowerCase().includes(searchKey) || x.procedure.toLowerCase().includes(searchKey));
-            }
-
-            let pendingCount = 0;
-            let doneCount = 0;
+            let filtered = currentDvcFilter === 'all' ? dvcData : dvcData.filter(x => x.status === currentDvcFilter);
+            const kw = document.getElementById('dvc-search-input')?.value.toLowerCase() || '';
+            if (kw) filtered = filtered.filter(x => x.id.toLowerCase().includes(kw) || x.citizen.toLowerCase().includes(kw) || x.procedure.toLowerCase().includes(kw));
 
             filtered.forEach(d => {
-                if (d.status === 'Đang xử lý') pendingCount++;
-                if (d.status === 'Đã hoàn thành') doneCount++;
-
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 border-b";
                 tr.innerHTML = `
-                    <td class="p-2.5 font-bold text-red-700">${d.id}</td>
+                    <td class="p-2.5 font-bold text-[#0066B3]">${d.id}</td>
                     <td class="p-2.5 font-bold text-slate-800">${d.procedure}</td>
                     <td class="p-2.5">${d.citizen}<br><span class="text-[10px] text-slate-400">${d.phone}</span></td>
                     <td class="p-2.5">${d.date}</td>
@@ -1434,88 +1061,64 @@
                     <td class="p-2.5">${d.officer}</td>
                     <td class="p-2.5"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${d.status === 'Đã hoàn thành' ? 'bg-emerald-100 text-emerald-800' : 'bg-yellow-100 text-yellow-800'}">${d.status}</span></td>
                     <td class="p-2.5 text-center role-officer-or-admin ${currentRole === 'admin' || currentRole === 'officer' ? '' : 'hidden'}">
-                        <button type="button" onclick="openDvcModal('${d.id}')" class="text-blue-600 hover:text-blue-800 p-1"><i class="fa-solid fa-pen"></i></button>
-                        <button type="button" onclick="deleteDvc('${d.id}')" class="text-red-600 hover:text-red-800 p-1"><i class="fa-solid fa-trash"></i></button>
+                        <button onclick="openDvcModal('${d.id}')" class="text-[#0066B3] p-1"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteDvc('${d.id}')" class="text-red-600 p-1"><i class="fa-solid fa-trash"></i></button>
                     </td>
                 `;
                 tbody.appendChild(tr);
             });
 
-            if (document.getElementById('stat-dvc-total')) document.getElementById('stat-dvc-total').innerText = dvcData.length;
-            if (document.getElementById('stat-dvc-pending')) document.getElementById('stat-dvc-pending').innerText = dvcData.filter(x => x.status === 'Đang xử lý').length;
-            if (document.getElementById('stat-dvc-done')) document.getElementById('stat-dvc-done').innerText = dvcData.filter(x => x.status === 'Đã hoàn thành').length;
-            if (document.getElementById('stat-officer-pending-dvc')) document.getElementById('stat-officer-pending-dvc').innerText = dvcData.filter(x => x.status === 'Đang xử lý').length;
+            document.getElementById('stat-dvc-total').innerText = dvcData.length;
+            document.getElementById('stat-dvc-pending').innerText = dvcData.filter(x => x.status === 'Đang xử lý').length;
+            document.getElementById('stat-dvc-done').innerText = dvcData.filter(x => x.status === 'Đã hoàn thành').length;
         }
-
-        function filterDvcStatus(st) {
-            currentDvcFilter = st;
-            renderDvcList();
-        }
-
-        function filterDvcData() {
-            renderDvcList();
-        }
-
+        function filterDvcStatus(st) { currentDvcFilter = st; renderDvcList(); }
+        function filterDvcData() { renderDvcList(); }
         function openDvcModal(id = null) {
             document.getElementById('dvc-edit-id').value = id || '';
-            const selectEl = document.getElementById('dvc-officer');
-            selectEl.innerHTML = '';
+            const sel = document.getElementById('dvc-officer');
+            sel.innerHTML = '';
             officersData.forEach(o => {
                 const opt = document.createElement('option');
-                opt.value = o.name;
-                opt.innerText = o.name;
-                selectEl.appendChild(opt);
+                opt.value = o.name; opt.innerText = o.name;
+                sel.appendChild(opt);
             });
-
             if (id) {
                 const d = dvcData.find(x => x.id === id);
                 if (d) {
                     document.getElementById('dvc-procedure').value = d.procedure;
                     document.getElementById('dvc-citizen').value = d.citizen;
                     document.getElementById('dvc-phone').value = d.phone;
-                    document.getElementById('dvc-officer').value = d.officer;
+                    sel.value = d.officer;
                     document.getElementById('dvc-status').value = d.status;
                     document.getElementById('dvc-note').value = d.note;
                 }
-            } else {
-                document.getElementById('dvc-citizen').value = '';
-                document.getElementById('dvc-phone').value = '';
-                document.getElementById('dvc-note').value = '';
             }
             document.getElementById('dvc-modal').classList.remove('hidden');
         }
-
-        function closeDvcModal() {
-            document.getElementById('dvc-modal').classList.add('hidden');
-        }
-
+        function closeDvcModal() { document.getElementById('dvc-modal').classList.add('hidden'); }
         function saveDvc(e) {
-            if (e) e.preventDefault();
+            e.preventDefault();
             const editId = document.getElementById('dvc-edit-id').value;
-            const procedure = document.getElementById('dvc-procedure').value;
-            const citizen = document.getElementById('dvc-citizen').value.trim();
-            const phone = document.getElementById('dvc-phone').value.trim();
-            const officer = document.getElementById('dvc-officer').value;
-            const status = document.getElementById('dvc-status').value;
-            const note = document.getElementById('dvc-note').value.trim();
-            const nowStr = new Date().toLocaleDateString('vi-VN');
-
+            const obj = {
+                id: editId || ('DVC-LH-' + Math.floor(Math.random() * 900 + 100)),
+                procedure: document.getElementById('dvc-procedure').value,
+                citizen: document.getElementById('dvc-citizen').value.trim(),
+                phone: document.getElementById('dvc-phone').value.trim(),
+                date: new Date().toLocaleDateString('vi-VN'),
+                deadline: '03 ngày',
+                officer: document.getElementById('dvc-officer').value,
+                status: document.getElementById('dvc-status').value,
+                note: document.getElementById('dvc-note').value.trim()
+            };
             if (editId) {
                 const idx = dvcData.findIndex(x => x.id === editId);
-                if (idx !== -1) {
-                    dvcData[idx] = { ...dvcData[idx], procedure, citizen, phone, officer, status, note };
-                }
-            } else {
-                const newId = 'DVC-2026-' + String(Math.floor(Math.random() * 900) + 100);
-                dvcData.unshift({ id: newId, procedure, citizen, phone, date: nowStr, deadline: '3 ngày', officer, status, note });
-            }
+                if (idx !== -1) dvcData[idx] = obj;
+            } else { dvcData.unshift(obj); }
             saveStorageData(STORAGE_KEYS.DVC, dvcData);
-            renderDvcList();
-            closeDvcModal();
+            renderDvcList(); closeDvcModal();
         }
-
         function deleteDvc(id) {
-            if (!confirm("Xóa hồ sơ dịch vụ công này?")) return;
             dvcData = dvcData.filter(x => x.id !== id);
             saveStorageData(STORAGE_KEYS.DVC, dvcData);
             renderDvcList();
@@ -1525,68 +1128,41 @@
             const container = document.getElementById('reports-stream');
             if (!container) return;
             container.innerHTML = '';
-
-            let filtered = publicReports;
-            if (reportFilterLoc !== 'all') {
-                filtered = publicReports.filter(x => x.location === reportFilterLoc);
-            }
-
-            if (filtered.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 text-center py-4">Chưa có phản ánh nào tại khu vực này.</p>`;
-                return;
-            }
-
+            let filtered = reportFilterLoc === 'all' ? publicReports : publicReports.filter(x => x.location === reportFilterLoc);
             filtered.forEach(r => {
                 const div = document.createElement('div');
-                div.className = "p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1.5";
+                div.className = "p-3.5 bg-slate-50 border border-slate-200 rounded space-y-1.5";
                 div.innerHTML = `
-                    <div class="flex justify-between items-start">
-                        <span class="text-[10px] bg-red-100 text-red-800 font-bold px-2 py-0.5 rounded">${r.cat}</span>
+                    <div class="flex justify-between">
+                        <span class="text-[10px] bg-blue-100 text-[#0066B3] font-bold px-2 py-0.5 rounded">${r.cat}</span>
                         <span class="text-[10px] text-slate-400">${r.time}</span>
                     </div>
                     <p class="font-bold text-slate-800 text-xs">${r.content}</p>
-                    <div class="flex justify-between items-center text-[11px] pt-1 border-t border-slate-200 text-slate-500">
-                        <span><i class="fa-solid fa-location-dot text-red-600 mr-1"></i> ${r.location} (Gửi bởi: <strong>${r.name}</strong>)</span>
-                        <span class="text-emerald-700 font-bold"><i class="fa-solid fa-circle-check mr-0.5"></i> ${r.status}</span>
+                    <div class="flex justify-between text-[11px] pt-1 border-t text-slate-500">
+                        <span><i class="fa-solid fa-location-dot text-red-600 mr-1"></i>${r.location} (${r.name})</span>
+                        <span class="text-emerald-700 font-bold">${r.status}</span>
                     </div>
                 `;
                 container.appendChild(div);
             });
         }
-
-        function filterReportByLocation(loc) {
-            reportFilterLoc = loc;
-            switchTab('phan-anh-dan');
-            renderReports();
-        }
-
-        function resetReportFilter() {
-            reportFilterLoc = 'all';
-            renderReports();
-        }
-
+        function filterReportByLocation(loc) { reportFilterLoc = loc; switchTab('phan-anh-dan'); renderReports(); }
+        function resetReportFilter() { reportFilterLoc = 'all'; renderReports(); }
         function handleCitizenReport(e) {
-            if (e) e.preventDefault();
-            const cat = document.getElementById('reporter-category').value;
-            const name = document.getElementById('reporter-name').value.trim() || 'Công dân ẩn danh';
-            const phone = document.getElementById('reporter-phone').value.trim() || 'Không cung cấp';
-            const location = document.getElementById('reporter-location').value;
-            const content = document.getElementById('reporter-content').value.trim();
-
-            const newRep = {
+            e.preventDefault();
+            publicReports.unshift({
                 id: 'PA-' + Date.now(),
-                cat, name, phone, location, content,
+                cat: document.getElementById('reporter-category').value,
+                name: document.getElementById('reporter-name').value.trim() || 'Công dân ẩn danh',
+                location: document.getElementById('reporter-location').value,
+                content: document.getElementById('reporter-content').value.trim(),
                 time: 'Vừa xong',
                 status: 'Đã tiếp nhận'
-            };
-
-            publicReports.unshift(newRep);
+            });
             saveStorageData(STORAGE_KEYS.REPORTS, publicReports);
             renderReports();
-            alert("Gửi phản ánh ANTT thành công! Trực ban Công an xã đã nhận được thông tin.");
+            showToast('Gửi phản ánh ANTT đến Công an xã Long Hà thành công!');
             document.getElementById('reporter-content').value = '';
-            document.getElementById('reporter-name').value = '';
-            document.getElementById('reporter-phone').value = '';
         }
 
         function sendAiMessage() {
@@ -1597,72 +1173,46 @@
 
             const userDiv = document.createElement('div');
             userDiv.className = "flex items-start justify-end space-x-2";
-            userDiv.innerHTML = `
-                <div class="bg-red-700 text-white p-3.5 rounded-2xl rounded-tr-none shadow-sm max-w-[85%] text-xs leading-relaxed">
-                    <p>${query}</p>
-                </div>
-                <div class="w-8 h-8 rounded-full bg-slate-800 text-white flex items-center justify-center font-bold flex-shrink-0 text-xs shadow">Bạn</div>
-            `;
+            userDiv.innerHTML = `<div class="bg-[#0066B3] text-white p-3 rounded-2xl rounded-tr-none max-w-[85%] text-xs">${query}</div>`;
             chatBox.appendChild(userDiv);
             inputEl.value = '';
             chatBox.scrollTop = chatBox.scrollHeight;
 
             setTimeout(() => {
-                let aiReply = "Cảm ơn đồng chí / công dân đã câu hỏi về quy định. Theo CSDL Pháp luật Công an xã Phú Trung, mọi thủ tục hành chính, cư trú, đăng ký PCCC và xử lý vi phạm đều tuân thủ nghiêm ngặt Luật Cư trú, Luật CCCD và các Thông tư mới nhất của Bộ Công an.";
+                let aiReply = "Trợ lý AI Công an xã Long Hà đã tiếp nhận câu hỏi. Bà con có thể thực hiện thủ tục trực tuyến qua Cổng Dịch vụ công Bộ Công an hoặc liên hệ trực tiếp Bộ phận Tiếp dân Công an xã Long Hà để được hỗ trợ miễn phí.";
                 if (query.toLowerCase().includes('nồng độ cồn')) {
-                    aiReply = "Theo Nghị định xử phạt vi phạm giao thông mới nhất, hành vi vi phạm nồng độ cồn khi điều khiển phương tiện sẽ bị phạt tiền mức cao nhất, tước giấy phép lái xe từ 22 đến 24 tháng và tạm giữ phương tiện đến 7 ngày theo quy định.";
+                    aiReply = "Theo quy định hiện hành, người điều khiển phương tiện vi phạm nồng độ cồn sẽ bị xử phạt hành chính mức cao nhất, tước quyền sử dụng Giấy phép lái xe từ 22 - 24 tháng và tạm giữ phương tiện.";
                 } else if (query.toLowerCase().includes('tạm trú')) {
-                    aiReply = "Thủ tục đăng ký tạm trú: Công dân đến thuê trọ trong thời hạn 30 ngày kể từ ngày chuyển đến phải làm thủ tục đăng ký tạm trú tại Công an xã Phú Trung. Có thể nộp trực tuyến qua Cổng Dịch vụ công Quốc gia / VNeID hoặc trực tiếp tại trụ sở CAX.";
+                    aiReply = "Thủ tục đăng ký tạm trú: Công dân chuẩn bị Tờ khai thay đổi thông tin cư trú (mẫu CT01) và giấy tờ chứng minh chỗ ở hợp pháp, nộp trực tuyến trên Cổng Dịch vụ công hoặc VNeID. Thời hạn giải quyết: 03 ngày làm việc.";
                 } else if (query.toLowerCase().includes('pccc')) {
-                    aiReply = "Quy định PCCC cho hộ kinh doanh: Phải trang bị ít nhất 01 bình chữa cháy bột/CO2 đạt chuẩn, có bảng nội quy phòng cháy, lối thoát nạn thông thoáng không bị vật cản và thực hiện kiểm tra an toàn định kỳ.";
+                    aiReply = "Hộ gia đình kết hợp sản xuất kinh doanh cần trang bị bình chữa cháy xách tay, nội quy tiêu lệnh PCCC, bảo đảm lối thoát nạn thứ 2 thông thoáng và không câu móc điện trái phép.";
                 }
 
                 const aiDiv = document.createElement('div');
                 aiDiv.className = "flex items-start space-x-2";
                 aiDiv.innerHTML = `
-                    <div class="w-8 h-8 rounded-full bg-yellow-500 text-slate-900 flex items-center justify-center font-bold flex-shrink-0 text-xs shadow">AI</div>
-                    <div class="bg-white p-3.5 rounded-2xl rounded-tl-none shadow-sm border border-slate-200 max-w-[85%] text-slate-800 leading-relaxed">
-                        <p>${aiReply}</p>
-                    </div>
+                    <div class="w-8 h-8 rounded-full bg-[#0066B3] text-white flex items-center justify-center font-bold flex-shrink-0 text-xs">AI</div>
+                    <div class="bg-white p-3.5 rounded-2xl rounded-tl-none border border-slate-200 max-w-[85%] text-slate-800">${aiReply}</div>
                 `;
                 chatBox.appendChild(aiDiv);
                 chatBox.scrollTop = chatBox.scrollHeight;
-            }, 600);
+            }, 500);
         }
-
-        function askQuickQuestion(q) {
-            document.getElementById('ai-input').value = q;
-            sendAiMessage();
-        }
+        function askQuickQuestion(q) { document.getElementById('ai-input').value = q; sendAiMessage(); }
 
         function exportData(type) {
-            let dataStr = "";
-            if (type === 'tasks') {
-                dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tasksData, null, 2));
-            } else {
-                dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(dvcData, null, 2));
-            }
-            const dlAnchor = document.createElement('a');
-            dlAnchor.setAttribute("href", dataStr);
-            dlAnchor.setAttribute("download", `BaoCao_${type}_CAX_PhuTrung_2026.json`);
-            document.body.appendChild(dlAnchor);
-            dlAnchor.click();
-            dlAnchor.remove();
+            const data = dvcData;
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+            const a = document.createElement('a');
+            a.setAttribute("href", dataStr);
+            a.setAttribute("download", `BaoCao_${type}_CAX_LongHa_2026.json`);
+            document.body.appendChild(a); a.click(); a.remove();
         }
-
-        function resetAllSystemData() {
-            if (!confirm("Khôi phục toàn bộ dữ liệu gốc của hệ thống Công an xã Phú Trung?")) return;
-            localStorage.clear();
-            location.reload();
-        }
-
-        function toggleSecurityModal() {
-            document.getElementById('security-modal').classList.toggle('hidden');
-        }
-
+        function resetAllSystemData() { localStorage.clear(); location.reload(); }
+        function toggleSecurityModal() { document.getElementById('security-modal').classList.toggle('hidden'); }
         function editOfficerName() {
-            const newName = prompt("Nhập tên hiển thị của đồng chí:", document.getElementById('current-officer-name').innerText);
-            if (newName && newName.trim() !== '') {
+            const newName = prompt("Nhập tên hiển thị:", document.getElementById('current-officer-name').innerText);
+            if (newName && newName.trim()) {
                 document.getElementById('current-officer-name').innerText = newName.trim();
                 localStorage.setItem(STORAGE_KEYS.OFFICER_NAME, newName.trim());
             }
@@ -1671,23 +1221,11 @@
         window.onload = function() {
             startLiveClock();
             renderStats();
-            renderOfficers();
-            renderTasks();
             renderDvcList();
             renderReports();
-            renderOfficerSection();
-
-            const savedRole = localStorage.getItem(STORAGE_KEYS.USER_ROLE);
-            if (savedRole) {
-                switchUserRole(savedRole);
-            } else {
-                switchUserRole('citizen');
-            }
-
+            switchUserRole(localStorage.getItem(STORAGE_KEYS.USER_ROLE) || 'citizen');
             const savedName = localStorage.getItem(STORAGE_KEYS.OFFICER_NAME);
-            if (savedName && document.getElementById('current-officer-name')) {
-                document.getElementById('current-officer-name').innerText = savedName;
-            }
+            if (savedName) document.getElementById('current-officer-name').innerText = savedName;
         };
     </script>
 </body>
